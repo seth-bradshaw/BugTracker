@@ -48,7 +48,11 @@ public class User
 	@NonNull
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
-	
+
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties(value = "employee", allowSetters = true)
+	private Set<CompanyEmployees> companies = new HashSet<>();
+
 	/**
 	 * Part of the join relationship between user and role
 	 * connects users to the user role combination
