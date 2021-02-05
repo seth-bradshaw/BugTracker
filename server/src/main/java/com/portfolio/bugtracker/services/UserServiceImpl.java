@@ -72,4 +72,10 @@ public class UserServiceImpl
 		
 		return userrepos.save(newUser);
 	}
+
+    @Override
+    public void deleteAllUsers()
+    {
+        userrepos.deleteAll();
+    }
 }
