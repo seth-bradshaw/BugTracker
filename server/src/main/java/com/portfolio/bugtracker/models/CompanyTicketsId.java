@@ -18,4 +18,8 @@ public class CompanyTicketsId implements Serializable
     private long company;
 
     private long ticket;
+
+    public CompanyTicketsId(long companyid, long ticketid)
+    {
+    }
 }

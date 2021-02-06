@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
+import com.portfolio.bugtracker.models.LoginCredentials;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
@@ -98,7 +98,7 @@ public class OauthController
 		// To get the access token, surf to the endpoint /login (which is always on the server where this is running)
 		// just as if a client had done this.
 		RestTemplate restTemplate = new RestTemplate();
-		String requestURI = "http://localhost" + ":" + httpServletRequest.getLocalPort() + "/login";
+		String requestURI = "http://localhost" + ":" + httpServletRequest.getLocalPort() + "/oauth/token";
 		
 		List<MediaType> acceptableMediaTypes = new ArrayList<>();
 		acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
@@ -130,7 +130,44 @@ public class OauthController
 				responseHeaders,
 				HttpStatus.CREATED);
 	}
-	
+
+	@PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> loginUser(@Valid @RequestBody LoginCredentials loginCredentials, HttpServletRequest httpServletRequest)
+	{
+		RestTemplate restTemplate = new RestTemplate();
+		String requestURI = "http://localhost" + ":" + httpServletRequest.getLocalPort() + "/oauth/token";
+
+		List<MediaType> acceptableMediaTypes = new ArrayList<>();
+		acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		headers.setAccept(acceptableMediaTypes);
+		headers.setBasicAuth(System.getenv("OAUTHCLIENTID"),
+				System.getenv("OAUTHCLIENTSECRET"));
+
+		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+		map.add("grant_type",
+				"password");
+		map.add("scope",
+				"read write trust");
+		map.add("username",
+				loginCredentials.getUsername());
+		map.add("password",
+				loginCredentials.getPassword());
+
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map,
+				headers);
+
+		String theToken = restTemplate.postForObject(requestURI,
+				request,
+				String.class);
+
+		return new ResponseEntity<>(theToken,
+				null,
+				HttpStatus.CREATED);
+	}
+
 	/**
 	 * Removes the token for the signed on user. The signed user will lose access to the application. They would have to sign on again.
 	 *

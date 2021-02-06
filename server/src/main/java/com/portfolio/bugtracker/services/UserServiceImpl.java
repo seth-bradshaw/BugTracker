@@ -78,4 +78,11 @@ public class UserServiceImpl
     {
         userrepos.deleteAll();
     }
+
+	@Override
+	public User findUserById(long userid) throws Exception
+	{
+		User user = userrepos.findById(userid).orElseThrow(() -> new Exception("User not found!"));
+		return user;
+	}
 }
