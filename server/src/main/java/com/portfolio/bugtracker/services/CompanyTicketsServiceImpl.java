@@ -7,15 +7,27 @@ import com.portfolio.bugtracker.repositories.CompanyTicketsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Company tickets service.
+ */
 @Service(value = "companyTicketsService")
 public class CompanyTicketsServiceImpl implements CompanyTicketsService
 {
+    /**
+     * The Company tickets repository.
+     */
     @Autowired
     CompanyTicketsRepository companyTicketsRepository;
-
+    
+    /**
+     * The Company service.
+     */
     @Autowired
     CompanyService companyService;
-
+    
+    /**
+     * The Ticket service.
+     */
     @Autowired
     TicketService ticketService;
 

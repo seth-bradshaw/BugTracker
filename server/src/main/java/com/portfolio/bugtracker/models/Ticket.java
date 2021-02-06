@@ -6,13 +6,16 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The type Ticket.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
 @Table(name = "tickets")
-public class Ticket
+public class Ticket extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

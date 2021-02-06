@@ -9,14 +9,12 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * The entity allowing interaction with the userroles table.
- * The join table between users and roles.
+ * The entity allowing interaction with the userroles table. The join table between users and roles.
  * <p>
- * Table enforces a unique constraint of the combination of userid and roleid.
- * These two together form the primary key.
+ * Table enforces a unique constraint of the combination of userid and roleid. These two together form the primary key.
  * <p>
- * When you have a compound primary key, you must implement Serializable for Hibernate
- * When you implement Serializable you must implement equals and hash code
+ * When you have a compound primary key, you must implement Serializable for Hibernate When you implement Serializable
+ * you must implement equals and hash code
  */
 @Entity
 @Getter
@@ -26,8 +24,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Table(name = "userroles")
 @IdClass(UserRolesId.class)
-public class UserRoles
-		implements Serializable
+public class UserRoles extends Auditable implements Serializable
 {
 	/**
 	 * 1/2 of the primary key (long) for userroles.
@@ -37,8 +34,7 @@ public class UserRoles
 	@ManyToOne
 	@NotNull
 	@JoinColumn(name = "userid")
-	@JsonIgnoreProperties(value = "roles",
-	                      allowSetters = true)
+	@JsonIgnoreProperties(value = "roles", allowSetters = true)
 	private User user;
 	
 	/**
@@ -49,7 +45,6 @@ public class UserRoles
 	@ManyToOne
 	@NotNull
 	@JoinColumn(name = "roleid")
-	@JsonIgnoreProperties(value = "users",
-	                      allowSetters = true)
+	@JsonIgnoreProperties(value = "users", allowSetters = true)
 	private Role role;
 }

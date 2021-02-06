@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 
+/**
+ * The type Seed data.
+ */
 @Component
 @Transactional
 @ConditionalOnProperty(prefix = "command.line.runner", value = "enabled", havingValue = "true", matchIfMissing = true)

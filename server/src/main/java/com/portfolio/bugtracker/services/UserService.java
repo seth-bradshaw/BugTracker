@@ -6,9 +6,8 @@ import com.portfolio.bugtracker.models.User;
 /**
  * The Service that works with User Model.
  * <p>
- * Note: Emails are added through the add user process
- * Roles are added through the add user process
- * No way to delete an assigned role
+ * Note: Emails are added through the add user process Roles are added through the add user process No way to delete an
+ * assigned role
  */
 public interface UserService
 {
@@ -20,9 +19,25 @@ public interface UserService
 	 */
 	User findByName(String name);
 	
+	/**
+	 * Save user.
+	 *
+	 * @param user the user
+	 * @return the user
+	 */
 	User save(User user);
-
-    void deleteAllUsers();
-
-    User findUserById(long userid) throws Exception;
+	
+	/**
+	 * Delete all users.
+	 */
+	void deleteAllUsers();
+	
+	/**
+	 * Find user by id user.
+	 *
+	 * @param userid the userid
+	 * @return the user
+	 * @throws Exception the exception
+	 */
+	User findUserById(long userid) throws Exception;
 }

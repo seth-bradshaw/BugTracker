@@ -18,7 +18,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "roles")
-public class Role
+public class Role extends Auditable
 {
 	/**
 	 * The primary key (long) of the roles table.

@@ -5,6 +5,9 @@ import lombok.*;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
+/**
+ * The type Company employees id.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

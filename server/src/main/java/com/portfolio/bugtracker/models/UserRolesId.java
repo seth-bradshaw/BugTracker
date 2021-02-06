@@ -17,8 +17,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Embeddable
-public class UserRolesId
-		implements Serializable
+public class UserRolesId implements Serializable
 {
 	/**
 	 * The id of the user

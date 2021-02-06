@@ -6,13 +6,16 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The type Company.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
 @Table(name = "companies")
-public class Company
+public class Company extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
