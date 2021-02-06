@@ -109,6 +109,7 @@ public class SeedData implements CommandLineRunner
         t1.setErrorcode("12345");
         t1.setErrorcategory("JS");
         t1.setNotes("Here is some notes about the issue.");
+        t1.setUser(u1);
         t1 = ticketService.save(t1);
         companyTicketsService.save(c1.getCompanyid(), t1.getTicketid());
 
@@ -120,6 +121,7 @@ public class SeedData implements CommandLineRunner
         t2.setErrorcode("12345");
         t2.setErrorcategory("JS");
         t2.setNotes("Here is some notes about the issue.");
+        t2.setUser(u2);
         t2 = ticketService.save(t2);
        companyTicketsService.save(c1.getCompanyid(), t2.getTicketid());
 
@@ -131,6 +133,7 @@ public class SeedData implements CommandLineRunner
         t3.setErrorcode("12345");
         t3.setErrorcategory("JS");
         t3.setNotes("Here is some notes about the issue.");
+        t3.setUser(u3);
         t3 = ticketService.save(t3);
         companyTicketsService.save(c1.getCompanyid(), t3.getTicketid());
     }
