@@ -12,8 +12,12 @@ public class TicketServiceImpl implements TicketService
     TicketRepository ticketRepository;
 
     @Override
-    public Ticket save(Ticket ticket)
+    public Ticket save(Ticket ticket) throws Exception
     {
+        if (ticket.getCompanies().size() > 0)
+        {
+            throw new Exception("Companies not changed through Ticket");
+        }
         return ticketRepository.save(ticket);
     }
 

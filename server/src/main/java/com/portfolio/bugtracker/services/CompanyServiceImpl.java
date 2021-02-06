@@ -12,9 +12,13 @@ public class CompanyServiceImpl implements CompanyService
     CompanyRepository companyRepository;
 
     @Override
-    public Company save(Company c1)
+    public Company save(Company company) throws Exception
     {
-        return companyRepository.save(c1);
+        if (company.getEmployees().size() > 0)
+        {
+            throw new Exception("Employees not changed through company");
+        }
+        return companyRepository.save(company);
     }
 
     @Override
