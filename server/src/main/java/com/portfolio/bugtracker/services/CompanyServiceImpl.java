@@ -5,9 +5,15 @@ import com.portfolio.bugtracker.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Company service.
+ */
 @Service(value = "companyService")
 public class CompanyServiceImpl implements CompanyService
 {
+    /**
+     * The Company repository.
+     */
     @Autowired
     CompanyRepository companyRepository;
 

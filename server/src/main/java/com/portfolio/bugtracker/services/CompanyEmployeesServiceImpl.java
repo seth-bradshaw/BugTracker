@@ -8,15 +8,27 @@ import com.portfolio.bugtracker.repositories.CompanyEmployeesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Company employees service.
+ */
 @Service(value = "companyEmployeesService")
 public class CompanyEmployeesServiceImpl implements CompanyEmployeesService
 {
+    /**
+     * The Company employees respository.
+     */
     @Autowired
     CompanyEmployeesRespository companyEmployeesRespository;
-
+    
+    /**
+     * The User service.
+     */
     @Autowired
     UserService userService;
-
+    
+    /**
+     * The Company service.
+     */
     @Autowired
     CompanyService companyService;
 

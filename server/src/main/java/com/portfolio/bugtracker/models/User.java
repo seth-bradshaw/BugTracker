@@ -24,7 +24,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "users")
-public class User
+public class User extends Auditable
 {
 	/**
 	 * The primary key (long) of the users table.
@@ -64,6 +64,11 @@ public class User
 	                      allowSetters = true)
 	private Set<UserRoles> roles = new HashSet<>();
 	
+	/**
+	 * Sets password encrypt.
+	 *
+	 * @param password the password
+	 */
 	public void setPasswordEncrypt(String password)
 	{
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -71,8 +76,8 @@ public class User
 	}
 	
 	/**
-	 * Internally, user security requires a list of authorities, roles, that the user has. This method is a simple way to provide those.
-	 * Note that SimpleGrantedAuthority requests the format ROLE_role name all in capital letters!
+	 * Internally, user security requires a list of authorities, roles, that the user has. This method is a simple way
+	 * to provide those. Note that SimpleGrantedAuthority requests the format ROLE_role name all in capital letters!
 	 *
 	 * @return The list of authorities, roles, this user object has
 	 */

@@ -7,6 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+/**
+ * The type Company employees.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,7 +18,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "companyemployees")
 @IdClass(CompanyEmployeesId.class)
-public class CompanyEmployees implements Serializable
+public class CompanyEmployees extends Auditable implements Serializable
 {
     @Id
     @ManyToOne

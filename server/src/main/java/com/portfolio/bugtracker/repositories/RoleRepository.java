@@ -6,8 +6,13 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * The CRUD Repository connecting Role to the rest of the application
  */
-public interface RoleRepository
-		extends CrudRepository<Role, Long>
+public interface RoleRepository extends CrudRepository<Role, Long>
 {
-	Role findByName(String thename);
+	/**
+	 * Find by name role.
+	 *
+	 * @param name the name of the role type
+	 * @return the role
+	 */
+	Role findByName(String name);
 }

@@ -7,6 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+/**
+ * The type Company tickets.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,7 +18,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "companytickets")
 @IdClass(CompanyTicketsId.class)
-public class CompanyTickets implements Serializable
+public class CompanyTickets extends Auditable implements Serializable
 {
     @Id
     @ManyToOne
