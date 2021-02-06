@@ -24,4 +24,6 @@ public interface CompanyService
      * @throws Exception the exception
      */
     Company findCompanyById(long companyid) throws Exception;
+
+    void deleteAllCompanies();
 }

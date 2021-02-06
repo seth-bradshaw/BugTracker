@@ -24,7 +24,7 @@ public class CompanyTickets extends Auditable implements Serializable
     @ManyToOne
     @NotNull
     @JoinColumn(name = "companyid")
-    @JsonIgnoreProperties(value = "tickets", allowSetters = true)
+    @JsonIgnoreProperties(value = {"tickets", "employees", "company"}, allowSetters = true)
     private Company company;
 
     @Id

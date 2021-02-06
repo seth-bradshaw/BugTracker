@@ -32,4 +32,10 @@ public class CompanyServiceImpl implements CompanyService
     {
         return companyRepository.findById(companyid).orElseThrow(() -> new Exception("Company not found!"));
     }
+
+    @Override
+    public void deleteAllCompanies()
+    {
+        companyRepository.deleteAll();
+    }
 }

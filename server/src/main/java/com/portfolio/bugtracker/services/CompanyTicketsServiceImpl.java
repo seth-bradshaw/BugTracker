@@ -7,6 +7,9 @@ import com.portfolio.bugtracker.repositories.CompanyTicketsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The type Company tickets service.
  */
@@ -39,5 +42,29 @@ public class CompanyTicketsServiceImpl implements CompanyTicketsService
         CompanyTickets companyTickets = companyTicketsRepository.findById(new CompanyTicketsId(company.getCompanyid(), ticket.getTicketid())).orElse(new CompanyTickets(company, ticket));
 
         return companyTicketsRepository.save(companyTickets);
+    }
+
+    @Override
+    public List<Ticket> fetchCompanyTickets(long companyid) throws Exception
+    {
+        List<CompanyTickets> companyTickets = new ArrayList<>();
+        companyTicketsRepository.findAll().iterator().forEachRemaining(companyTickets::add);
+        List<Ticket> tickets = new ArrayList<>();
+
+        for (CompanyTickets ct : companyTickets)
+        {
+            if (ct.getCompany().getCompanyid() == companyid)
+            {
+                tickets.add(ct.getTicket());
+            }
+        }
+
+        return tickets;
+    }
+
+    @Override
+    public void deleteAllCompanyTickets()
+    {
+        companyTicketsRepository.deleteAll();
     }
 }
