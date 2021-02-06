@@ -23,4 +23,6 @@ public interface UserService
 	User save(User user);
 
     void deleteAllUsers();
+
+    User findUserById(long userid) throws Exception;
 }
