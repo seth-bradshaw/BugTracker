@@ -28,7 +28,7 @@ public class CompanyTicketsId implements Serializable
      * @param companyid the companyid
      * @param ticketid  the ticketid
      */
-    public CompanyTicketsId(long companyid, long ticketid)
+    public CompanyTicketsId(long company, long ticket)
     {
     }
 }

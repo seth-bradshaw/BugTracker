@@ -28,4 +28,8 @@ public class UserRolesId implements Serializable
 	 * The id of the role
 	 */
 	private long role;
+	
+	public UserRolesId(long user, long role)
+	{
+	}
 }
