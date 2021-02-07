@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode
 @Embeddable
 public class CompanyEmployeesId implements Serializable
@@ -19,4 +18,8 @@ public class CompanyEmployeesId implements Serializable
     private long company;
 
     private long employee;
+    
+    public CompanyEmployeesId(long companyid, long userid)
+    {
+    }
 }
