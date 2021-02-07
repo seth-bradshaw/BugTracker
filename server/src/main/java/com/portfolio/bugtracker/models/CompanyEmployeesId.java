@@ -19,7 +19,7 @@ public class CompanyEmployeesId implements Serializable
 
     private long employee;
     
-    public CompanyEmployeesId(long companyid, long userid)
+    public CompanyEmployeesId(long company, long employee)
     {
     }
 }
