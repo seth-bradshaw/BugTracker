@@ -55,6 +55,7 @@ public class UserServiceImpl
 		newUser.setUsername(user.getUsername()
 				.toLowerCase());
 		newUser.setPassword(user.getPassword());
+		newUser.setEmail(user.getEmail());
 		
 		newUser.getRoles()
 				.clear();
