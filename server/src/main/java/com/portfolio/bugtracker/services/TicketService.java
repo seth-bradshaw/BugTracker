@@ -26,4 +26,6 @@ public interface TicketService
     Ticket findTicketById(long ticketid) throws Exception;
 
     void deleteAllTickets();
+
+    void deleteTicketById(long ticketid);
 }

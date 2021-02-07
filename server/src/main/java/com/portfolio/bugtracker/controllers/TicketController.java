@@ -1,5 +1,6 @@
 package com.portfolio.bugtracker.controllers;
 
+import com.portfolio.bugtracker.models.CompanyTicketsId;
 import com.portfolio.bugtracker.models.Ticket;
 import com.portfolio.bugtracker.services.CompanyTicketsService;
 import com.portfolio.bugtracker.services.TicketService;
@@ -32,9 +33,30 @@ public class TicketController
     @PostMapping(value = {"/company/{companyid}/ticket/add"}, consumes = "application/json")
     public ResponseEntity<?> addNewTicket(@PathVariable long companyid, @Valid @RequestBody Ticket newTicket) throws Exception
     {
+        newTicket.setTicketid(0);
         Ticket ticket = ticketService.save(newTicket);
         companyTicketsService.save(companyid, ticket.getTicketid());
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    //Endpoint to edit an existing ticket by id. Will return successful status, but not the new ticket object.
+    @PutMapping(value = {"/company/{companyid}/ticket/{ticketid}"}, consumes = "application/json")
+    public ResponseEntity<?> editExistingTicket(@PathVariable long companyid, @PathVariable long ticketid, @Valid @RequestBody Ticket editedTicket) throws Exception
+    {
+        editedTicket.setTicketid(ticketid);
+        Ticket ticket = ticketService.save(editedTicket);
+        companyTicketsService.save(companyid, ticketid);
+
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    //Endpoint to delete an existing ticket.
+    @DeleteMapping(value = {"/ticket/{ticketid}"})
+    public ResponseEntity<?> deleteTicket(@PathVariable long ticketid)
+    {
+        ticketService.deleteTicketById(ticketid);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

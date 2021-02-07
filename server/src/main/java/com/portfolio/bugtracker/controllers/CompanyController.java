@@ -53,12 +53,32 @@ public class CompanyController
         return new ResponseEntity<>(companyTickets, HttpStatus.OK);
     }
 
-    //Endpoint to create a new company. This will only return a created status, so no body will be returned from the server.
+    //Endpoint to create a new company. This will only return a created status, no body will be returned from the server.
     @PostMapping(value = "/company/add", consumes = "application/json")
     public ResponseEntity<?> addNewCompany(@Valid @RequestBody Company newCompany) throws Exception
     {
+        newCompany.setCompanyid(0);
         companyService.save(newCompany);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    //Endpoint to edit an existing company by id. This will only return a status.
+    @PutMapping(value = "/company/{companyid}", consumes = "application/json")
+    public ResponseEntity<?> editExistingCompany(@PathVariable long companyid, @Valid @RequestBody Company newCompany) throws Exception
+    {
+        newCompany.setCompanyid(companyid);
+        newCompany = companyService.save(newCompany);
+
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    //Endpoint to delete an existing company by id.
+    @DeleteMapping(value = "/company/{companyid}")
+    public ResponseEntity<?> deleteCompany(@PathVariable long companyid)
+    {
+        companyService.deleteCompanyById(companyid);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

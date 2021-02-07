@@ -26,4 +26,6 @@ public interface CompanyService
     Company findCompanyById(long companyid) throws Exception;
 
     void deleteAllCompanies();
+
+    void deleteCompanyById(long companyid);
 }

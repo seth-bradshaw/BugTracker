@@ -1,6 +1,5 @@
 package com.portfolio.bugtracker;
 
-
 import com.portfolio.bugtracker.models.*;
 import com.portfolio.bugtracker.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +94,7 @@ public class SeedData implements CommandLineRunner
         companyEmployeesService.save(c1.getCompanyid(), u3.getUserid());
 
         Ticket t1 = new Ticket();
-        t1.getCompanies().add(new CompanyTickets(c1, t1));
+        t1.setUser(u2);
         t1.setTitle("My first bug reported");
         t1.setDescription("I encountered my first error!");
         t1.setStatus("In Progress");
@@ -106,7 +105,7 @@ public class SeedData implements CommandLineRunner
         companyTicketsService.save(c1.getCompanyid(), t1.getTicketid());
 
         Ticket t2 = new Ticket();
-        t2.getCompanies().add(new CompanyTickets(c1, t2));
+        t2.setUser(u2);
         t2.setTitle("My first bug reported");
         t2.setDescription("I encountered my first error!");
         t2.setStatus("In Progress");
@@ -117,7 +116,7 @@ public class SeedData implements CommandLineRunner
         companyTicketsService.save(c1.getCompanyid(), t2.getTicketid());
 
         Ticket t3 = new Ticket();
-        t3.getCompanies().add(new CompanyTickets(c1, t3));
+        t3.setUser(u3);
         t3.setTitle("My first bug reported");
         t3.setDescription("I encountered my first error!");
         t3.setStatus("In Progress");

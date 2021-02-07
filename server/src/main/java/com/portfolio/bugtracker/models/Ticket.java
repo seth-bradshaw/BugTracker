@@ -14,6 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@JsonIgnoreProperties(value = "companies", allowSetters = true)
 @Entity
 @Table(name = "tickets")
 public class Ticket extends Auditable
@@ -28,6 +29,7 @@ public class Ticket extends Auditable
 
     @OneToOne
     @JoinColumn(name = "userid")
+    @JsonIgnoreProperties(value = {"companies"}, allowSetters = true)
     private User user;
 
     @NonNull

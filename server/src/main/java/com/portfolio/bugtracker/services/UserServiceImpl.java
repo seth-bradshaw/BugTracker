@@ -85,4 +85,11 @@ public class UserServiceImpl
 		User user = userrepos.findById(userid).orElseThrow(() -> new Exception("User not found!"));
 		return user;
 	}
+
+    @Override
+    public User findByUsername(String name)
+    {
+    	User user = userrepos.findByUsername(name);
+        return user;
+    }
 }
