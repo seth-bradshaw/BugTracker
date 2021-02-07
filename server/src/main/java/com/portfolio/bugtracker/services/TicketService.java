@@ -24,4 +24,8 @@ public interface TicketService
      * @throws Exception the exception
      */
     Ticket findTicketById(long ticketid) throws Exception;
+
+    void deleteAllTickets();
+
+    void deleteTicketById(long ticketid);
 }

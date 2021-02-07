@@ -40,4 +40,6 @@ public interface UserService
 	 * @throws Exception the exception
 	 */
 	User findUserById(long userid) throws Exception;
+
+    User findByUsername(String name);
 }

@@ -1,5 +1,6 @@
 package com.portfolio.bugtracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,8 +26,10 @@ public class Company extends Auditable
     private String companyname;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = {"company"}, allowSetters = true)
     private Set<CompanyEmployees> employees = new HashSet<>();
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = {"company"}, allowSetters = true)
     private Set<CompanyTickets> tickets = new HashSet<>();
 }

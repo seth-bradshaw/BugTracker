@@ -1,5 +1,6 @@
 package com.portfolio.bugtracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@JsonIgnoreProperties(value = "companies", allowSetters = true)
 @Entity
 @Table(name = "tickets")
 public class Ticket extends Auditable
@@ -22,10 +24,12 @@ public class Ticket extends Auditable
     private long ticketid;
 
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = {"tickets","ticket"}, allowSetters = true)
     private Set<CompanyTickets> companies = new HashSet<>();
 
     @OneToOne
     @JoinColumn(name = "userid")
+    @JsonIgnoreProperties(value = {"companies"}, allowSetters = true)
     private User user;
 
     @NonNull

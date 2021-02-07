@@ -50,7 +50,7 @@ public class User extends Auditable
 	private String password;
 
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonIgnoreProperties(value = "employee", allowSetters = true)
+	@JsonIgnoreProperties(value = {"employee", "company"}, allowSetters = true)
 	private Set<CompanyEmployees> companies = new HashSet<>();
 
 	/**
