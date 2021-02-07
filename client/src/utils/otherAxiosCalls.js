@@ -1,11 +1,9 @@
 import axios from 'axios';
+import { BASEURL } from '../constants';
 
 const baseAxiosCall = () => {
   return axios.create({
-    // for testing
-    baseURL: 'http://localhost:2019',
-    // for deployment
-    // baseURL: "",
+    baseURL: BASEURL,
   });
 };
 

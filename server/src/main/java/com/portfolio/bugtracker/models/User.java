@@ -48,6 +48,11 @@ public class User extends Auditable
 	@NonNull
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
+	
+	@NotNull
+	@NonNull
+	@Column(unique = true)
+	private String email;
 
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties(value = {"employee", "company"}, allowSetters = true)
