@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { BASEURL } from '../constants';
+import axiosWithAuth from '../utils/axiosWithAuth';
 
 const baseAxiosCall = () => {
   return axios.create({
@@ -36,3 +37,23 @@ export const register = (newUser) => {
       return err;
     });
 };
+
+export const postTicket = (newTicket, companyid) => {
+  const { title, description, status, errorCode, errorCategory } = newTicket;
+  return axiosWithAuth()
+    .post(`/company/${companyid}/ticket/add`, {
+        title: title,
+        description: description,
+        status: status,
+        errorCode: errorCode,
+        errorCategory: errorCategory
+    })
+    .then(res => {
+      console.log("SUCCESS POSTING TICKET==>", res)
+      return res
+    })
+    .catch(err => {
+      console.log("ERROR POSTING TICKET==>", err)
+      return err
+    })
+}

@@ -5,6 +5,8 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import PrivateRoute from './utils/PrivateRoute';
 import Dashboard from './components/Dashboard';
+import PostTicket from './components/Tickets/PostTicket';
+import PutTicket from './components/Tickets/PutTicket';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route exact path="/" component={LoginForm} />
         <Route path="/register" component={RegisterForm} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/postticket" component={PostTicket} />
+        <PrivateRoute path="/putticket" component={PutTicket} />
       </Switch>
     </div>
   );
