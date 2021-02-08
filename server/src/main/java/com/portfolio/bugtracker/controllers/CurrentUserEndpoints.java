@@ -14,7 +14,8 @@ public class CurrentUserEndpoints
 {
 	@Autowired
 	private UserRepository userRepos;
-	
+
+	//Enpoint to access the currently logged in user. This will return the entire user object.
 	@GetMapping(value = "/getuserinfo", produces = {"application/json"})
 	public ResponseEntity<?> getCurrentUserInfo(Authentication auth)
 	{
@@ -22,7 +23,8 @@ public class CurrentUserEndpoints
 		
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
-	
+
+	//Endpoint to access the currently logged in user. This will return the name of the user.
 	@GetMapping(value = "/getusername", produces = {"application/json"})
 	public ResponseEntity<?> getCurrentUsername(Authentication auth)
 	{

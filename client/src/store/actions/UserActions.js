@@ -10,13 +10,13 @@ export const getCurrentUser = () => (dispatch) => {
   axiosWithAuth()
     .get('/getuserinfo')
     .then((res) => {
-      let { username, roles, email } = res.data;
+      let { userid, username, roles, email } = res.data;
       roles = roles.map((role) => {
         return role.role.name;
       });
       dispatch({
         type: GETCURRENTUSERSUCCESS,
-        payload: { username: username, roles: roles, email: email },
+        payload: { userid: userid, username: username, roles: roles, email: email },
       });
     })
     .catch((err) => {

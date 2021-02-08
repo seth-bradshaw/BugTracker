@@ -5,6 +5,7 @@ import {
 } from '../../constants';
 
 const defaultState = {
+  userid: 0,
   username: null,
   roles: [],
   email: '',
@@ -20,9 +21,10 @@ const userReducer = (state = defaultState, action) => {
         isFetching: true,
       };
     case GETCURRENTUSERSUCCESS:
-      const { username, roles, email } = action.payload;
+      const { userid, username, roles, email } = action.payload;
       return {
         ...state,
+        userid: userid, 
         username: username,
         roles: roles,
         email: email,
