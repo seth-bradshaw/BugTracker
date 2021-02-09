@@ -20,21 +20,27 @@ export default function NavBar() {
     <div>
       <Navbar color="faded" light>
         <NavbarBrand href="/" className="mr-auto" style={{color: "white", fontSize:"25px"}}>Bug Tracker</NavbarBrand>
-        <Button circular icon='bars' onClick={toggleNavbar} inverted/>
+        <Button  icon='bars' onClick={toggleNavbar} inverted></Button>
+        {/* <Button onClick={toggleNavbar} inverted animated='vertical'>
+          <Button.Content hidden>Menu</Button.Content>
+          <Button.Content visible>
+            <Icon name='bars' />
+          </Button.Content>
+        </Button> */}
         {/* <NavbarToggler onClick={toggleNavbar} className="mr-2" /> */}
         <Collapse isOpen={!collapsed} navbar >
           <Nav navbar >
             <NavItem>
-              <NavLink href="/dashboard" style={{color: "#00B5AD"}}>Something</NavLink>
+              <NavLink href="/dashboard" style={{color: "#00B5AD", fontSize:"16px"}}>Something</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/postticket" style={{color: "#00B5AD"}}>New Ticket</NavLink>
+              <NavLink href="/postticket" style={{color: "#00B5AD", fontSize:"16px"}}>New Ticket</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/account" style={{color: "#00B5AD"}}>Account</NavLink>
+              <NavLink href="/account" style={{color: "#00B5AD", fontSize:"16px"}}>Account</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/" style={{color: "#00B5AD"}} onClick={handleLogout}>Sign Out</NavLink>
+              <NavLink href="/" style={{color: "#00B5AD", fontSize:"16px"}} onClick={handleLogout}>Sign Out</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
