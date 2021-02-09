@@ -15,6 +15,13 @@ export default function Dashboard() {
     dispatch(getCurrentUser());
   }, []);
 
+  // useEffect(() => {
+  //   axiosWithAuth()
+  //     .get('/company/4/tickets')
+  //     .then((res) => console.log(res))
+  //     .catch((err) => console.log(err));
+  // }, []);
+
   return (
     <>
       <div>Dashboard</div>
@@ -22,16 +29,32 @@ export default function Dashboard() {
       {tickets.length > 0 &&
         tickets.map((ticket) => {
           return (
-            <div key={ticket.ticketid}>
+            <div key={ticket.ticket.ticketid + 'div'}>
               <ul>
-                <li>ID: {ticket.ticketid}</li>
-                <li>Created By: {ticket.user}</li>
-                <li>Title: {ticket.title}</li>
-                <li>Desc: {ticket.description}</li>
-                <li>Status: {ticket.status}</li>
-                <li>Error Code: {ticket.errorcode}</li>
-                <li>Error Category: {ticket.errorcategory}</li>
-                <li>Notes: {ticket.notes}</li>
+                <li key={1 + parseInt(ticket.ticket.ticketid)}>
+                  ID: {ticket.ticket.ticketid}
+                </li>
+                <li key={2 + parseInt(ticket.ticket.ticketid)}>
+                  Created By: {ticket.ticket.user}
+                </li>
+                <li key={3 + parseInt(ticket.ticket.ticketid)}>
+                  Title: {ticket.ticket.title}
+                </li>
+                <li key={4 + parseInt(ticket.ticket.ticketid)}>
+                  Desc: {ticket.ticket.description}
+                </li>
+                <li key={5 + parseInt(ticket.ticket.ticketid)}>
+                  Status: {ticket.ticket.status}
+                </li>
+                <li key={6 + parseInt(ticket.ticket.ticketid)}>
+                  Error Code: {ticket.ticket.errorcode}
+                </li>
+                <li key={7 + ticket.ticket.ticketid}>
+                  Error Category: {ticket.ticket.errorcategory}
+                </li>
+                <li key={8 + ticket.ticket.ticketid}>
+                  Notes: {ticket.ticket.notes}
+                </li>
               </ul>
             </div>
           );
