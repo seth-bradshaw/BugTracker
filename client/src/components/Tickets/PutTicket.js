@@ -40,7 +40,7 @@ export default function PutTicket() {
     const statuses = [
         {key: "s", text:"Not started", value: "not started"},
         {key: "p", text:"In progress", value: "in progress"},
-        {key: "c", text:"Completed", value: "completed"},
+        {key: "c", text:"Completed", value: "completed"}
     ]
 
     return (
@@ -71,7 +71,6 @@ export default function PutTicket() {
                     <label>Description</label>
                     <TextArea focus className="ticket-description-input"  value={editTicket.description} placeholder="Description" name="description" onChange={changeHandler}/>
                 </Form.Field>
-                <Button>Submit</Button>
                 {
                     !isSubmitting ?
                     <Button className="ticket-form-button" color="teal"floated="right">Submit</Button>
