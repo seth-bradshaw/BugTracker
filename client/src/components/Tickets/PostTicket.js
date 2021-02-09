@@ -51,7 +51,7 @@ export default function PostTicket() {
             </div>
             <Form className="ticket-form" onSubmit={() => postNewTicket(newTicket)} size="medium">
                 <Form.Field width="16">
-                    <label  basic className="ticket-form-label" >Title</label>
+                    <label  basic className="ticket-form-label" style={{fontSize: '10px'}}>Title</label>
                     <Input  focus type="text" placeholder="Title" name="title" onChange={changeHandler}/>
                 </Form.Field>
                 <Form.Group>
