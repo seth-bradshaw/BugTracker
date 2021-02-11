@@ -18,8 +18,19 @@
   border-radius: 10px;
   padding:2%;
 }
-/* GET THIS TO OVERWRITE SEMANTIC UI STYLING OR TO WORK WITH HTML LABEL TAG */
-.field>label{
+
+.navbar{
+  background-color: #323335;
+}
+
+.navbar-toggler{
+  background-color: #1B1C1D !important;
+  border-color:#1B1C1D!important;
+  color: white !important;
+}
+
+/*Go to component to see overridden css*/
+.ticket-form-label{
   color: black;
   font-size: 25px;
 }

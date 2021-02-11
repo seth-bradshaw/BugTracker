@@ -55,7 +55,7 @@ public class User extends Auditable
 	private String email;
 
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonIgnoreProperties(value = {"employee", "company"}, allowSetters = true)
+	@JsonIgnoreProperties(value = {"employee"}, allowSetters = true)
 	private Set<CompanyEmployees> companies = new HashSet<>();
 
 	/**

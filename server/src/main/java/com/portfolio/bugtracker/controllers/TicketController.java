@@ -15,10 +15,10 @@ import javax.validation.Valid;
 public class TicketController
 {
     @Autowired
-    TicketService ticketService;
+    private TicketService ticketService;
 
     @Autowired
-    CompanyTicketsService companyTicketsService;
+    private CompanyTicketsService companyTicketsService;
 
     //Endpoint to fetch a single ticket by id. Will return the requested ticket.
     @GetMapping(value = {"/ticket/{ticketid}"}, produces = "application/json")
