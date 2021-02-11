@@ -1,14 +1,54 @@
 import React from 'react';
-import { Container, Header, Icon, Divider } from 'semantic-ui-react';
+import { Container, Header, Icon, Divider, List } from 'semantic-ui-react';
 
-export default function Ticket({ ticket }) {
+export default function Ticket({ ticketData }) {
+  const { ticket } = ticketData;
+
   return (
     <Container fluid textAlign="center">
       <Header as="h3" icon>
         <Icon name="file alternate outline" />
-        {ticket.ticket.title}
+        {ticket.title}
+        <p>Created By: {ticket.user}</p>
       </Header>
+      <List>
+        <List.Item>ID: {ticket.ticketid}</List.Item>
+        <List.Item>Status: {ticket.status}</List.Item>
+        <List.Item>Error Code: {ticket.errorcode}</List.Item>
+        <List.Item>Error Category{ticket.errorcategory}</List.Item>
+        <List.Item>Description: {ticket.description}</List.Item>
+        <List.Item>Notes: {ticket.notes}</List.Item>
+      </List>
       <Divider />
     </Container>
   );
 }
+
+// <div key={ticket.ticket.ticketid + 'div'}>
+//   <ul>
+//     <li key={1 + parseInt(ticket.ticket.ticketid)}>
+//       ID: {ticket.ticket.ticketid}
+//     </li>
+//     <li key={2 + parseInt(ticket.ticket.ticketid)}>
+//       Created By: {ticket.ticket.user}
+//     </li>
+//     <li key={3 + parseInt(ticket.ticket.ticketid)}>
+//       Title: {ticket.ticket.title}
+//     </li>
+//     <li key={4 + parseInt(ticket.ticket.ticketid)}>
+//       Desc: {ticket.ticket.description}
+//     </li>
+//     <li key={5 + parseInt(ticket.ticket.ticketid)}>
+//       Status: {ticket.ticket.status}
+//     </li>
+//     <li key={6 + parseInt(ticket.ticket.ticketid)}>
+//       Error Code: {ticket.ticket.errorcode}
+//     </li>
+//     <li key={7 + ticket.ticket.ticketid}>
+//       Error Category: {ticket.ticket.errorcategory}
+//     </li>
+//     <li key={8 + ticket.ticket.ticketid}>
+//       Notes: {ticket.ticket.notes}
+//     </li>
+//   </ul>
+// </div>

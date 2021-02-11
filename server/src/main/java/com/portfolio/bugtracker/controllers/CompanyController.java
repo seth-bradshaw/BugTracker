@@ -18,13 +18,13 @@ import java.util.List;
 public class CompanyController
 {
     @Autowired
-    CompanyService companyService;
+    private CompanyService companyService;
 
     @Autowired
-    CompanyEmployeesService companyEmployeesService;
+    private CompanyEmployeesService companyEmployeesService;
 
     @Autowired
-    CompanyTicketsService companyTicketsService;
+    private CompanyTicketsService companyTicketsService;
 
     //Endpoint to access a company by id. Will only return the requested company object.
     @GetMapping(value = "/company/{companyid}", produces = "application/json")
