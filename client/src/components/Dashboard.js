@@ -28,8 +28,8 @@ export default function Dashboard() {
 
   return (
     <>
-      <Container textAlign="center">
-        <Header as="h2">Dashboard</Header>
+      <Container textAlign="center" style={{ marginTop: '20px' }}>
+        <Header as="h2">Welcome {currentUser.username}</Header>
         {tickets.length > 0 ? (
           tickets.map((ticket) => {
             return (
