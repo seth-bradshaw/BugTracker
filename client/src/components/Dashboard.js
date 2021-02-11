@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentUser } from '../store/actions/UserActions';
-import { Container, Header } from 'semantic-ui-react';
-import Ticket from './Tickets/Ticket';
+import { Container, Header, Divider } from 'semantic-ui-react';
+import EditTicket from './Tickets/EditTicket';
 import NoTickets from './Tickets/NoTickets';
 import TicketLoading from './Tickets/TicketLoading';
 import PostTicket from './Tickets/PostTicket';
@@ -33,10 +33,13 @@ export default function Dashboard() {
         {tickets.length > 0 ? (
           tickets.map((ticket) => {
             return (
-              <Ticket
-                key={ticket.ticket.ticketid + 'comp'}
-                ticketData={ticket}
-              />
+              <>
+                <EditTicket
+                  key={ticket.ticket.ticketid + 'edit'}
+                  ticketData={ticket}
+                />
+                <Divider />
+              </>
             );
           })
         ) : (
