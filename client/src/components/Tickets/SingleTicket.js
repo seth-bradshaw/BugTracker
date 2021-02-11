@@ -4,7 +4,7 @@ export default function SingleTicket() {
     
     return (
         <div>
-            
+            <p>testing</p>
         </div>
     )
 }
