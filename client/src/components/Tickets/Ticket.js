@@ -1,9 +1,7 @@
 import React from 'react';
 import { Container, Header, Icon, Divider, List } from 'semantic-ui-react';
 
-export default function Ticket({ ticketData }) {
-  const { ticket } = ticketData;
-
+export default function Ticket({ ticket }) {
   return (
     <>
       <div className="ticket-form-container">
@@ -25,7 +23,6 @@ export default function Ticket({ ticketData }) {
           </List>
         </Container>
       </div>
-      <Divider />
     </>
   );
 }
