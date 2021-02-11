@@ -13,6 +13,10 @@ import {
 } from 'reactstrap';
 
 export default function NavBar() {
+
+  const [collapsed, setCollapsed] = useState(true);
+
+  const toggleNavbar = () => setCollapsed(!collapsed);
   const { push } = useHistory();
 
   const handleLogout = (e) => {
@@ -114,3 +118,5 @@ export default function NavBar() {
   //   </Nav>
   // );
 }
+
+
