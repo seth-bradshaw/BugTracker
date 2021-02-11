@@ -10,7 +10,7 @@ export default function Ticket({ ticket }) {
             <Header as="h4" icon>
               <Icon name="file alternate outline" />
               {ticket.title}
-              <p>Created By: {ticket.user}</p>
+              <p>Created By: {JSON.stringify(ticket.user)}</p>
             </Header>
           </div>
           <List>
