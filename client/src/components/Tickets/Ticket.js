@@ -1,26 +1,29 @@
 import React from 'react';
 import { Container, Header, Icon, Divider, List } from 'semantic-ui-react';
 
-export default function Ticket({ ticketData }) {
-  const { ticket } = ticketData;
-
+export default function Ticket({ ticket }) {
   return (
-    <Container fluid textAlign="center">
-      <Header as="h3" icon>
-        <Icon name="file alternate outline" />
-        {ticket.title}
-        <p>Created By: {ticket.user}</p>
-      </Header>
-      <List>
-        <List.Item>ID: {ticket.ticketid}</List.Item>
-        <List.Item>Status: {ticket.status}</List.Item>
-        <List.Item>Error Code: {ticket.errorcode}</List.Item>
-        <List.Item>Error Category{ticket.errorcategory}</List.Item>
-        <List.Item>Description: {ticket.description}</List.Item>
-        <List.Item>Notes: {ticket.notes}</List.Item>
-      </List>
-      <Divider />
-    </Container>
+    <>
+      <div className="ticket-form-container">
+        <Container fluid textAlign="center">
+          <div className="ticket-header">
+            <Header as="h4" icon>
+              <Icon name="file alternate outline" />
+              {ticket.title}
+              <p>Created By: {JSON.stringify(ticket.user)}</p>
+            </Header>
+          </div>
+          <List>
+            <List.Item>ID: {ticket.ticketid}</List.Item>
+            <List.Item>Status: {ticket.status}</List.Item>
+            <List.Item>Error Code: {ticket.errorcode}</List.Item>
+            <List.Item>Error Category{ticket.errorcategory}</List.Item>
+            <List.Item>Description: {ticket.description}</List.Item>
+            <List.Item>Notes: {ticket.notes}</List.Item>
+          </List>
+        </Container>
+      </div>
+    </>
   );
 }
 
