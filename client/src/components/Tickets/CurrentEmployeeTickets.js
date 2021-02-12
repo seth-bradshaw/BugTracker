@@ -3,12 +3,12 @@ import axiosWithAuth from '../../utils/axiosWithAuth';
 import { useSelector, useDispatch } from 'react-redux';
 import Ticket from './Ticket';
 
-export default function CurrentEmployeeTickets() {
+export default function CurrentEmployeeTickets(props) {
     const companyTickets = useSelector(state => state.tickets.tickets)
 
     return (
         <div>
-            {companyTickets.map(ticket => <Ticket ticket={ticket.ticket} />)}
+            {companyTickets && companyTickets.map(ticket => <Ticket ticket={ticket.ticket} />)}
         </div>
     )
 }
