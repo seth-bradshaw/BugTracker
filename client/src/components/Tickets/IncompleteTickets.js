@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 import Ticket from './Ticket';
 
-export default function UncompleteTicket() {
+export default function IncompleteTickets() {
     const tickets = useSelector((state) => state.tickets);
     const user = useSelector((state) => state.user);
     console.log(tickets, user);

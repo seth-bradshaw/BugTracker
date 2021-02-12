@@ -47,7 +47,7 @@ export default function Dashboard() {
         ) : (
           <NoTickets />
         )}
-        <button onClick={() => push('/companyemployees')}></button>
+        <button onClick={() => push('/companyemployees')}>COMPANY EMPLOYEES TEMP BUTTON</button>
       </Container>
     </>
   );

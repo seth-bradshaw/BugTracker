@@ -22,7 +22,14 @@ export default function CompanyEmployees() {
         <div>
             {
                 emps.map(emp => {
-                    console.log(emp)
+                    return(
+                        <div>
+                            <p>{emp.userid}</p>
+                            <p>{emp.username}</p>
+                            <p>{emp.email}</p>
+                            <p>{emp.role}</p>
+                        </div>
+                    )
                 })
             }
         </div>

@@ -54,10 +54,10 @@ export default function NavBar() {
             </NavItem>
             <NavItem>
               <NavLink
-                onClick={() => push('/uncompletedtickets')}
+                onClick={() => push('/mytickets')}
                 style={{ color: '#BBBCBF', fontSize: '16px' }}
               >
-                Uncompleted Tickets
+                My Tickets
               </NavLink>
             </NavItem>
             <NavItem>
