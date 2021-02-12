@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Header, Icon, Divider, List } from 'semantic-ui-react';
 
 export default function Ticket({ ticket }) {
+  console.log(ticket)
   return (
     <>
       <div className="ticket-form-container">
@@ -10,10 +11,13 @@ export default function Ticket({ ticket }) {
             <Header as="h4" icon>
               <Icon name="file alternate outline" />
               {ticket.title}
-              <p>Created By: {ticket.user}</p>
+              {/* <p>Created By: {ticket.user}</p> */}
             </Header>
           </div>
           <List>
+            {
+              console.log(ticket)
+            }
             <List.Item>ID: {ticket.ticketid}</List.Item>
             <List.Item>Status: {ticket.status}</List.Item>
             <List.Item>Error Code: {ticket.errorcode}</List.Item>
