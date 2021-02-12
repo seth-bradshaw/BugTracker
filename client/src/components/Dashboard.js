@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentUser } from '../store/actions/UserActions';
+import { useHistory } from 'react-router-dom';
 import { Container, Header, Divider } from 'semantic-ui-react';
 import EditTicket from './Tickets/EditTicket';
 import NoTickets from './Tickets/NoTickets';
@@ -8,6 +9,7 @@ import TicketLoading from './Tickets/TicketLoading';
 import PostTicket from './Tickets/PostTicket';
 
 export default function Dashboard() {
+  const { push } = useHistory();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user);
   const tickets = useSelector((state) => state.tickets.tickets);
@@ -18,7 +20,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     setIsFetching(true);
-    dispatch(getCurrentUser());
+    // dispatch(getCurrentUser());
     setIsFetching(false);
   }, []);
 
@@ -45,6 +47,7 @@ export default function Dashboard() {
         ) : (
           <NoTickets />
         )}
+        <button onClick={() => push('/companyemployees')}></button>
       </Container>
     </>
   );

@@ -10,3 +10,6 @@ export const GETCURRENTUSERFAILURE = 'GETCURRENTUSERFAILURE';
 
 // Ticket Action Types
 export const GETUSERTICKETSSUCCESS = 'GETUSERTICKETSSUCCESS';
+
+// For Company Employees or Admins Users depending on app.
+export const GETCOMPANYEMPLOYEESSUCCESS = 'GETCOMPANYEMPLOYEESSUCCESS';
