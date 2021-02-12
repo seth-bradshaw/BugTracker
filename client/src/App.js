@@ -8,7 +8,7 @@ import PrivateRoute from './utils/PrivateRoute';
 import Dashboard from './components/Dashboard';
 import PostTicket from './components/Tickets/PostTicket';
 import PutTicket from './components/Tickets/PutTicket';
-import UncompletedTicket from './components/Tickets/UncompletedTicket';
+import CurrentEmployeeTickets from './components/Tickets/CurrentEmployeeTickets';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser } from './store/actions/UserActions';
 import CompanyEmployees from './components/CompanyEmployees';
@@ -34,7 +34,7 @@ function App() {
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/postticket" component={PostTicket} />
         <PrivateRoute path="/putticket" component={PutTicket} />
-        <PrivateRoute path="/uncompletedtickets" component={UncompletedTicket} />
+        <PrivateRoute path="/currentemployeetickets" component={CurrentEmployeeTickets} />
         <PrivateRoute path="/companyemployees" component={CompanyEmployees} />
       </Switch>
     </div>
