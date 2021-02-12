@@ -42,6 +42,7 @@ export default function NavBar() {
           </Button.Content>
         </Button> */}
         {/* <NavbarToggler onClick={toggleNavbar} className="mr-2" /> */}
+        {/*make all navlinks on push not href. also change styling so it looks like mouse hovers */}
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
             <NavItem>
@@ -54,7 +55,7 @@ export default function NavBar() {
             </NavItem>
             <NavItem>
               <NavLink
-                onClick={() => push('/mytickets')}
+                onClick={() => push('/currentemployeetickets')}
                 style={{ color: '#BBBCBF', fontSize: '16px' }}
               >
                 My Tickets
