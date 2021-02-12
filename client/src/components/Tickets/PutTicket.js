@@ -32,11 +32,11 @@ export default function PutTicket({ ticket }) {
     axiosWithAuth()
       .put(`/company/4/ticket/${ticket.ticketid}`, newTicket)
       .then((res) => {
-        console.log('SUCCESS POSTING TICKET==>', res);
+        console.log('SUCCESS EDITING TICKET==>', res);
         setIsSubmitting(false);
       })
       .catch((err) => {
-        console.log('ERROR POSTING TICKET==>', err);
+        console.log('ERROR EDITING TICKET==>', err);
       });
   };
 

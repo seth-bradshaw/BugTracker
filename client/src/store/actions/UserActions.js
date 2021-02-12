@@ -23,6 +23,7 @@ export const getCurrentUser = () => (dispatch) => {
           username: username,
           roles: roles,
           email: email,
+          company: companies[0].company
         },
       });
       dispatch({

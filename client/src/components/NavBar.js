@@ -46,24 +46,24 @@ export default function NavBar() {
           <Nav navbar>
             <NavItem>
               <NavLink
-                href="/dashboard"
-                style={{ color: '#00B5AD', fontSize: '16px' }}
-              >
-                Something
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
                 href="/postticket"
-                style={{ color: '#00B5AD', fontSize: '16px' }}
+                style={{ color: '#BBBCBF', fontSize: '16px' }}
               >
                 New Ticket
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
+                onClick={() => push('/uncompletedtickets')}
+                style={{ color: '#BBBCBF', fontSize: '16px' }}
+              >
+                Uncompleted Tickets
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
                 href="/account"
-                style={{ color: '#00B5AD', fontSize: '16px' }}
+                style={{ color: '#BBBCBF', fontSize: '16px' }}
               >
                 Account
               </NavLink>
@@ -71,7 +71,7 @@ export default function NavBar() {
             <NavItem>
               <NavLink
                 href="/"
-                style={{ color: '#00B5AD', fontSize: '16px' }}
+                style={{ color: '#BBBCBF', fontSize: '16px' }}
                 onClick={handleLogout}
               >
                 Sign Out
