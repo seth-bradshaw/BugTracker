@@ -13,16 +13,16 @@ import {
 } from 'reactstrap';
 
 export default function NavBar() {
+
+  const [collapsed, setCollapsed] = useState(true);
+
+  const toggleNavbar = () => setCollapsed(!collapsed);
   const { push } = useHistory();
 
   const handleLogout = (e) => {
     localStorage.removeItem('token');
     push('/');
   };
-
-  const [collapsed, setCollapsed] = useState(true);
-
-  const toggleNavbar = () => setCollapsed(!collapsed);
 
   return (
     <div>
@@ -42,28 +42,29 @@ export default function NavBar() {
           </Button.Content>
         </Button> */}
         {/* <NavbarToggler onClick={toggleNavbar} className="mr-2" /> */}
+        {/*make all navlinks on push not href. also change styling so it looks like mouse hovers */}
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
             <NavItem>
               <NavLink
-                href="/dashboard"
-                style={{ color: '#00B5AD', fontSize: '16px' }}
-              >
-                Something
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
                 href="/postticket"
-                style={{ color: '#00B5AD', fontSize: '16px' }}
+                style={{ color: '#BBBCBF', fontSize: '16px' }}
               >
                 New Ticket
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
+                onClick={() => push('/currentemployeetickets')}
+                style={{ color: '#BBBCBF', fontSize: '16px' }}
+              >
+                My Tickets
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
                 href="/account"
-                style={{ color: '#00B5AD', fontSize: '16px' }}
+                style={{ color: '#BBBCBF', fontSize: '16px' }}
               >
                 Account
               </NavLink>
@@ -71,7 +72,7 @@ export default function NavBar() {
             <NavItem>
               <NavLink
                 href="/"
-                style={{ color: '#00B5AD', fontSize: '16px' }}
+                style={{ color: '#BBBCBF', fontSize: '16px' }}
                 onClick={handleLogout}
               >
                 Sign Out
@@ -114,3 +115,5 @@ export default function NavBar() {
   //   </Nav>
   // );
 }
+
+

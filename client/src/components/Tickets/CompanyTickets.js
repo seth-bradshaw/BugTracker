@@ -1,10 +1,9 @@
 import React from 'react'
 
-export default function SingleTicket() {
-    
+export default function CompanyTickets() {
     return (
         <div>
-            <p>testing</p>
+            
         </div>
     )
 }

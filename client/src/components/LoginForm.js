@@ -3,7 +3,8 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
-
+import { useDispatch } from 'react-redux';
+import { getCurrentUser } from '../store/actions/UserActions';
 import { loginSchema } from '../schema';
 import { login } from '../utils/otherAxiosCalls';
 
@@ -68,6 +69,7 @@ const initialLoginValues = {
 
 export default function LoginForm() {
   const { push } = useHistory();
+  const dispatch = useDispatch();
 
   return (
     <StyledContainer>
@@ -80,6 +82,7 @@ export default function LoginForm() {
             .then((res) => {
               console.log('Login Successful ==>> ', res.data);
               localStorage.setItem('token', res.data.access_token);
+              dispatch(getCurrentUser())
               push('/dashboard');
             })
             .catch((err) => {
