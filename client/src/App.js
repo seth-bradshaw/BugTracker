@@ -11,7 +11,7 @@ import PutTicket from './components/Tickets/PutTicket';
 import CurrentEmployeeTickets from './components/Tickets/CurrentEmployeeTickets';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser } from './store/actions/UserActions';
-import CompanyEmployees from './components/CompanyEmployees';
+import CompanyEmployees from './components/Employees/CompanyEmployees';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
 function App() {
