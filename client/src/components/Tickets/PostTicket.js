@@ -19,7 +19,7 @@ const initalFormVal = {
   },
   title: '',
   description: '',
-  status: 'incomplete',
+  status: '',
   errorCode: '',
   errorCategory: '',
   notes: '',
@@ -30,6 +30,7 @@ export default function PostTicket() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const postNewTicket = (ticket) => {
+    console.log(ticket)
     setIsSubmitting(true);
     postTicket(
       {
@@ -56,9 +57,9 @@ export default function PostTicket() {
   };
 
   const statuses = [
-    { key: 's', text: 'Not started', value: 'not started' },
-    { key: 'p', text: 'In progress', value: 'in progress' },
-    { key: 'c', text: 'Completed', value: 'completed' },
+    { key: 's', text: 'Not started', value: 'Not Started' },
+    { key: 'p', text: 'In progress', value: 'In Progress' },
+    { key: 'c', text: 'Completed', value: 'Completed' },
   ];
 
   return (
@@ -113,6 +114,7 @@ export default function PostTicket() {
             <Select
               placeholder="Status of issue..."
               options={statuses}
+              onChange={changeHandler}
               clearable
             />
           </Form.Field>
