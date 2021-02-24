@@ -42,7 +42,7 @@ public class SeedData implements CommandLineRunner
     private TicketCategoriesService ticketCategoriesService;
 
     @Autowired
-    private TicketStatusesSevice ticketStatusesSevice;
+    private TicketStatusesService ticketStatusesService;
 
     @Autowired
     private StatusService statusService;
@@ -151,7 +151,7 @@ public class SeedData implements CommandLineRunner
 
         Status s1 = new Status();
         s1.setStatustype("Not started. Testing");
-        statusService.save(s1);
+        s1 = statusService.save(s1);
 
         Category cat1 = new Category();
 //        cat1.setCategoryid(20);
@@ -165,7 +165,7 @@ public class SeedData implements CommandLineRunner
         TicketStatuses ts1 = new TicketStatuses(t2, s1);
 //        s1.getTickets().add(ts1);
 //        t2.getStatuses().add(ts1);
-        ts1 = ticketStatusesSevice.save(ts1);
+        ts1 = ticketStatusesService.save(ts1);
 
         TicketCategories tc1 = new TicketCategories(t2, cat1);
 //        cat1.getTickets().add(tc1);

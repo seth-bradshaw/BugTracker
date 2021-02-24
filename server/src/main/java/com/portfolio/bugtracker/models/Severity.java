@@ -17,14 +17,12 @@ import java.util.Set;
 public class Severity extends Auditable
 {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long severityid;
 
-    @NotNull
     private long severitylevel;
 
     @OneToMany(mappedBy = "severity", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = {"tickets"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"severity"}, allowSetters = true)
     private Set<TicketSeverities> tickets = new HashSet<>();
 }
