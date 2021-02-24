@@ -1,7 +1,5 @@
 package com.portfolio.bugtracker.services;
 
-import com.portfolio.bugtracker.models.Status;
-import com.portfolio.bugtracker.models.Ticket;
 import com.portfolio.bugtracker.models.TicketStatuses;
 import com.portfolio.bugtracker.models.TicketStatusesId;
 import com.portfolio.bugtracker.repositories.TicketStatusesRepository;
@@ -9,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service(value = "ticketstatusesservices")
-public class TicketStatusesServiceImpl implements TicketStatusesSevice
+public class TicketStatusesServiceImpl implements TicketStatusesService
 {
     @Autowired
     private TicketStatusesRepository ticketStatusesRepository;
@@ -30,4 +28,5 @@ public class TicketStatusesServiceImpl implements TicketStatusesSevice
 
         return ticketStatusesRepository.save(ticketStatuses1);
     }
+
 }

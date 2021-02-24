@@ -25,6 +25,6 @@ public class Status extends Auditable
 
     @NotNull
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = {"statuses"})
+    @JsonIgnoreProperties(value = {"status"})
     private Set<TicketStatuses> tickets = new HashSet<>();
 }

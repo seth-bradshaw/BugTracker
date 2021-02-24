@@ -28,7 +28,7 @@ public class TicketServiceImpl implements TicketService
     TicketCategoriesService ticketCategoriesService;
 
     @Autowired
-    TicketStatusesSevice ticketStatusesSevice;
+    TicketStatusesService ticketStatusesService;
 
     @Autowired
     TicketSeveritiesService ticketSeveritiesService;
@@ -89,7 +89,7 @@ public class TicketServiceImpl implements TicketService
             for (TicketStatuses ts : ticket.getStatuses())
             {
                 Status status = statusService.findByStatusId(ts.getStatus().getStatusid());
-                ticketStatusesSevice.save(new TicketStatuses(ts.getTicket(), status));
+                ticketStatusesService.save(new TicketStatuses(ts.getTicket(), status));
             }
         }
 
