@@ -3,6 +3,8 @@ package com.portfolio.bugtracker.services;
 
 import com.portfolio.bugtracker.models.User;
 
+import java.util.List;
+
 /**
  * The Service that works with User Model.
  * <p>
@@ -42,4 +44,10 @@ public interface UserService
 	User findUserById(long userid) throws Exception;
 
     User findByUsername(String name);
+
+    List<User> findAllUsers();
+
+	User edit(User partiallyEditedUser) throws Exception;
+
+	void deleteUserById(long userid);
 }
