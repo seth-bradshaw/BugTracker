@@ -35,8 +35,19 @@ public class Ticket extends Auditable
     @NonNull
     private String title;
     private String description;
-    private String status;
     private String errorcode;
-    private String errorcategory;
     private String notes;
+
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = {"ticket"})
+    private Set<TicketCategories> categories = new HashSet<>();
+
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = {"ticket"})
+    private Set<TicketStatuses> statuses = new HashSet<>();
+
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = {"ticket"})
+    private Set<TicketSeverities> severities = new HashSet<>();
+
 }

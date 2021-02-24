@@ -1,7 +1,6 @@
 package com.portfolio.bugtracker.services;
 
-import com.portfolio.bugtracker.models.Ticket;
-import com.portfolio.bugtracker.models.User;
+import com.portfolio.bugtracker.models.*;
 import com.portfolio.bugtracker.repositories.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -24,6 +23,24 @@ public class TicketServiceImpl implements TicketService
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    TicketCategoriesService ticketCategoriesService;
+
+    @Autowired
+    TicketStatusesSevice ticketStatusesSevice;
+
+    @Autowired
+    TicketSeveritiesService ticketSeveritiesService;
+
+    @Autowired
+    CategoryService categoryService;
+
+    @Autowired
+    StatusService statusService;
+
+    @Autowired
+    SeverityService severityService;
 
     @Override
     public Ticket save(Ticket ticket) throws Exception
@@ -55,11 +72,35 @@ public class TicketServiceImpl implements TicketService
 
         newTicket.setTitle(ticket.getTitle());
         newTicket.setDescription(ticket.getDescription());
-        newTicket.setStatus(ticket.getStatus());
         newTicket.setErrorcode(ticket.getErrorcode());
-        newTicket.setErrorcategory(ticket.getErrorcategory());
         newTicket.setNotes(ticket.getNotes());
 
+        if (ticket.getCategories() != null)
+        {
+            for (TicketCategories tc : ticket.getCategories())
+            {
+                Category category = categoryService.findById(tc.getCategory().getCategoryid());
+                ticketCategoriesService.save(new TicketCategories(tc.getTicket(), category));
+            }
+        }
+
+        if (ticket.getStatuses() != null)
+        {
+            for (TicketStatuses ts : ticket.getStatuses())
+            {
+                Status status = statusService.findByStatusId(ts.getStatus().getStatusid());
+                ticketStatusesSevice.save(new TicketStatuses(ts.getTicket(), status));
+            }
+        }
+
+        if (ticket.getSeverities() != null)
+        {
+            for (TicketSeverities ts : ticket.getSeverities())
+            {
+                Severity severity = severityService.findBySeverityId(ts.getSeverity().getSeverityid());
+                ticketSeveritiesService.save(new TicketSeverities(ts.getTicket(), severity));
+            }
+        }
 
         return ticketRepository.save(newTicket);
     }
