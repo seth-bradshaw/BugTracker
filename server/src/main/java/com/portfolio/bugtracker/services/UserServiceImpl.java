@@ -8,6 +8,8 @@ import com.portfolio.bugtracker.models.UserRoles;
 import com.portfolio.bugtracker.repositories.RoleRepository;
 import com.portfolio.bugtracker.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
