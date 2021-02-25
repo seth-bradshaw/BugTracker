@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "userroles")
 @IdClass(UserRolesId.class)
 public class UserRoles extends Auditable implements Serializable
@@ -33,6 +33,7 @@ public class UserRoles extends Auditable implements Serializable
 	@Id
 	@ManyToOne
 	@NotNull
+	@NonNull
 	@JoinColumn(name = "userid")
 	@JsonIgnoreProperties(value = "roles", allowSetters = true)
 	private User user;
@@ -44,6 +45,7 @@ public class UserRoles extends Auditable implements Serializable
 	@Id
 	@ManyToOne
 	@NotNull
+	@NonNull
 	@JoinColumn(name = "roleid")
 	@JsonIgnoreProperties(value = "users", allowSetters = true)
 	private Role role;

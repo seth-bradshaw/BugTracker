@@ -50,4 +50,6 @@ public interface UserService
 	User edit(User partiallyEditedUser) throws Exception;
 
 	void deleteUserById(long userid);
+
+    List<User> fetchUsersByCompany(long companyid);
 }

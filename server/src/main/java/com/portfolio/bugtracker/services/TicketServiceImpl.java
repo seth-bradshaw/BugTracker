@@ -8,6 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Ticket service.
@@ -25,31 +27,14 @@ public class TicketServiceImpl implements TicketService
     UserService userService;
 
     @Autowired
-    TicketCategoriesService ticketCategoriesService;
-
-    @Autowired
-    TicketStatusesService ticketStatusesService;
-
-    @Autowired
-    TicketSeveritiesService ticketSeveritiesService;
-
-    @Autowired
     CategoryService categoryService;
 
     @Autowired
     StatusService statusService;
 
-    @Autowired
-    SeverityService severityService;
-
     @Override
     public Ticket save(Ticket ticket) throws Exception
     {
-        if (ticket.getCompanies().size() > 0)
-        {
-            throw new Exception("Only one company per ticket.");
-        }
-
         Ticket newTicket = new Ticket();
 
         if (ticket.getTicketid() != 0)
@@ -58,48 +43,42 @@ public class TicketServiceImpl implements TicketService
                     .orElseThrow(() -> new EntityNotFoundException("Ticket with id " + ticket.getTicketid() + " not found!"));
             newTicket.setTicketid(ticket.getTicketid());
         }
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication != null)
+        if (ticket.getUser() == null)
         {
-            User user = userService.findByUsername(authentication.getName());
-            newTicket.setUser(user);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null)
+            {
+                User user = userService.findByUsername(authentication.getName());
+                newTicket.setUser(user);
+            }
+//            else
+//            {
+//                throw new Exception("You must be logged in to access this!");
+//            }
         }
-        //before deployment uncomment.
-//        else {
-//            throw new Exception("Invalid User");
-//        }
+        else
+        {
+            //temp fix for seeddata
+            newTicket.setUser(ticket.getUser());
+        }
 
         newTicket.setTitle(ticket.getTitle());
         newTicket.setDescription(ticket.getDescription());
         newTicket.setErrorcode(ticket.getErrorcode());
         newTicket.setNotes(ticket.getNotes());
+        newTicket.setSeverity(ticket.getSeverity());
 
-        if (ticket.getCategories() != null)
+        if (ticket.getCategory() != null)
         {
-            for (TicketCategories tc : ticket.getCategories())
-            {
-                Category category = categoryService.findById(tc.getCategory().getCategoryid());
-                ticketCategoriesService.save(new TicketCategories(tc.getTicket(), category));
-            }
+            Category category = categoryService.findById(ticket.getCategory().getCategoryid());
+            newTicket.setCategory(category);
         }
 
-        if (ticket.getStatuses() != null)
+        if (ticket.getStatus() != null)
         {
-            for (TicketStatuses ts : ticket.getStatuses())
-            {
-                Status status = statusService.findByStatusId(ts.getStatus().getStatusid());
-                ticketStatusesService.save(new TicketStatuses(ts.getTicket(), status));
-            }
-        }
-
-        if (ticket.getSeverities() != null)
-        {
-            for (TicketSeverities ts : ticket.getSeverities())
-            {
-                Severity severity = severityService.findBySeverityId(ts.getSeverity().getSeverityid());
-                ticketSeveritiesService.save(new TicketSeverities(ts.getTicket(), severity));
-            }
+            Status status = statusService.findByStatusId(ticket.getStatus().getStatusid());
+            newTicket.setStatus(status);
         }
 
         return ticketRepository.save(newTicket);
@@ -121,5 +100,14 @@ public class TicketServiceImpl implements TicketService
     public void deleteTicketById(long ticketid)
     {
         ticketRepository.deleteById(ticketid);
+    }
+
+    @Override
+    public List<Ticket> findAllTickets()
+    {
+        List<Ticket> ticketList = new ArrayList<>();
+        ticketRepository.findAll().iterator().forEachRemaining(ticketList::add);
+
+        return ticketList;
     }
 }

@@ -51,15 +51,6 @@ public class CategoryContoller
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/editcategory/{categoryid}", consumes = "application/json")
-    public ResponseEntity<?> partiallyEditExistingCategory(@RequestBody Category paritallyEditedCategory, @PathVariable long categoryid) throws Exception
-    {
-        paritallyEditedCategory.setCategoryid(categoryid);
-        paritallyEditedCategory = categoryService.edit(paritallyEditedCategory);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @DeleteMapping(value = "/category/{categoryid}")
     public ResponseEntity<?> deleteCategoryById(@PathVariable long categoryid)
     {

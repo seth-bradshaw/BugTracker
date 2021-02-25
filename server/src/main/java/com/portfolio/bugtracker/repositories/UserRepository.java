@@ -2,7 +2,10 @@ package com.portfolio.bugtracker.repositories;
 
 
 import com.portfolio.bugtracker.models.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
 
 /**
  * The CRUD repository connecting User to the rest of the application
@@ -17,5 +20,8 @@ public interface UserRepository
 	 * @return the first user object with the name you seek
 	 */
 	User findByUsername(String username);
-	
+
+	//this is fully functional, we just need the ID to be companyid passed through endpoint
+	@Query(value = "SELECT u FROM User u WHERE u.company.companyid = 14")
+    List<User> findUserByCompany(long companyid);
 }

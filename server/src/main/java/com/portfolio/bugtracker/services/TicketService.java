@@ -2,6 +2,8 @@ package com.portfolio.bugtracker.services;
 
 import com.portfolio.bugtracker.models.Ticket;
 
+import java.util.List;
+
 /**
  * The interface Ticket service.
  */
@@ -28,4 +30,6 @@ public interface TicketService
     void deleteAllTickets();
 
     void deleteTicketById(long ticketid);
+
+    List<Ticket> findAllTickets();
 }

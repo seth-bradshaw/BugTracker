@@ -14,6 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@AllArgsConstructor
 @JsonIgnoreProperties(value = "companies", allowSetters = true)
 @Entity
 @Table(name = "tickets")
@@ -23,31 +24,23 @@ public class Ticket extends Auditable
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long ticketid;
 
-    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = {"tickets","ticket"}, allowSetters = true)
-    private Set<CompanyTickets> companies = new HashSet<>();
-
-    @OneToOne
-    @JoinColumn(name = "userid")
-    @JsonIgnoreProperties(value = {"companies"}, allowSetters = true)
-    private User user;
-
     @NonNull
     private String title;
     private String description;
     private String errorcode;
     private String notes;
+    private String severity;
 
-    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = {"ticket"})
-    private Set<TicketCategories> categories = new HashSet<>();
+    @OneToOne
+    @JoinColumn(name = "userid")
+    @JsonIgnoreProperties(value = {"company"}, allowSetters = true)
+    private User user;
 
-    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = {"ticket"})
-    private Set<TicketStatuses> statuses = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties(value = {"tickets"})
+    private Category category;
 
-    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = {"ticket"})
-    private Set<TicketSeverities> severities = new HashSet<>();
-
+    @ManyToOne
+    @JsonIgnoreProperties(value = {"tickets"})
+    private Status status;
 }

@@ -1,11 +1,13 @@
 package com.portfolio.bugtracker.services;
 
 import com.portfolio.bugtracker.models.*;
-import com.portfolio.bugtracker.repositories.CompanyEmployeesRespository;
 import com.portfolio.bugtracker.repositories.CompanyRepository;
-import com.portfolio.bugtracker.repositories.CompanyTicketsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
 
 /**
  * The type Company service.
@@ -17,44 +19,38 @@ public class CompanyServiceImpl implements CompanyService
      * The Company repository.
      */
     @Autowired
-    CompanyRepository companyRepository;
+    private CompanyRepository companyRepository;
 
     @Autowired
-    CompanyEmployeesRespository companyEmployeesRespository;
-
-    @Autowired
-    CompanyTicketsRepository companyTicketsRepository;
+    private UserService userService;
 
     @Override
     public Company save(Company company) throws Exception
     {
-        if (company.getEmployees().size() > 0)
+        if (company.getUsers().size() > 0)
         {
-            throw new Exception("Employees cannot be included in post to Company.");
+            throw new Exception("Users cannot be included in post to Company.");
         }
 
         Company newCompany = new Company();
 
-        newCompany.setCompanyname(company.getCompanyname());
+        if (company.getCompanyid() != 0)
+        {
+            companyRepository.findById(company.getCompanyid())
+                    .orElseThrow(() ->  new EntityNotFoundException("Company with " + company.getCompanyid() + " not found!"));
 
-//        if ()
-//        for (CompanyEmployees e : company.getEmployees())
+            newCompany.setCompanyid(company.getCompanyid());
+        }
+        //uncomment for deployment
+//        else
 //        {
-//            CompanyEmployees companyEmployees = companyEmployeesRespository.findById(new CompanyEmployeesId(e.getCompany().getCompanyid(), e.getEmployee().getUserid()))
-//                    .orElse(new CompanyEmployees(e.getCompany(), e.getEmployee()));
+//            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//            User user = userService.findByUsername(authentication.getName());
 //
-//            newCompany.getEmployees().add(companyEmployees);
-//            companyEmployeesRespository.save(companyEmployees);
+//            newCompany.getUsers().add(user);
 //        }
-//
-//        for (CompanyTickets t : company.getTickets())
-//        {
-//            CompanyTickets companyTickets = companyTicketsRepository.findById(new CompanyTicketsId(t.getCompany().getCompanyid(), t.getTicket().getTicketid()))
-//                    .orElse(new CompanyTickets(t.getCompany(), t.getTicket()));
-//
-//            newCompany.getTickets().add(companyTickets);
-//            companyTicketsRepository.save(companyTickets);
-//        }
+
+        newCompany.setCompanyname(company.getCompanyname());
 
         newCompany = companyRepository.save(company);
 

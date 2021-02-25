@@ -54,9 +54,9 @@ public class User extends Auditable
 	@Column(unique = true)
 	private String email;
 
-	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonIgnoreProperties(value = {"employee"}, allowSetters = true)
-	private Set<CompanyEmployees> companies = new HashSet<>();
+	@ManyToOne
+	@JsonIgnoreProperties(value = {"users"}, allowSetters = true)
+	private Company company;
 
 	/**
 	 * Part of the join relationship between user and role
