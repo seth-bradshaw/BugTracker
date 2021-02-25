@@ -1,6 +1,7 @@
 package com.portfolio.bugtracker.services;
 
 
+import com.portfolio.bugtracker.models.Company;
 import com.portfolio.bugtracker.models.Role;
 import com.portfolio.bugtracker.models.User;
 import com.portfolio.bugtracker.models.UserRoles;
@@ -30,6 +31,9 @@ public class UserServiceImpl
 	
 	@Autowired
 	private RoleRepository rolerepos;
+
+	@Autowired
+	private CompanyService companyService;
 	
 	@Override
 	public User findByName(String name)
@@ -67,11 +71,12 @@ public class UserServiceImpl
 					.getRoleid())
 					.orElseThrow(() -> new EntityNotFoundException("Role id " + ur.getRole()
 							.getRoleid() + " not found!"));
-			
 			newUser.getRoles()
 					.add(new UserRoles(newUser,
 							addRole));
 		}
+
+		newUser.setCompany(user.getCompany());
 		
 		return userrepos.save(newUser);
 	}
@@ -131,14 +136,23 @@ public class UserServiceImpl
 			editedUser.setEmail(partiallyEditedUser.getEmail());
 		}
 
-		if (partiallyEditedUser.getCompanies().size() > 0)
+		//DOESN'T WORK FOR PATCH OR PUT EDITING COMPANY
+		if (partiallyEditedUser.getCompany() != null)
 		{
-			throw new Exception("You cannot edit users companies through user!");
+			Company company = companyService.findCompanyById(partiallyEditedUser.getCompany().getCompanyid());
+			editedUser.setCompany(company);
 		}
 
+		//DOESN'T WORK FOR PATCH OR PUT EDITING ROLES
+		editedUser.getRoles().clear();
 		if (partiallyEditedUser.getRoles().size() > 0)
 		{
-			throw new Exception("You cannot edit users roles through user!");
+			for (UserRoles ur : partiallyEditedUser.getRoles())
+			{
+				Role role = rolerepos.findById(ur.getRole().getRoleid())
+						.orElseThrow(() -> new EntityNotFoundException("Role id " + ur.getRole().getRoleid() + " not found!"));
+				editedUser.getRoles().add(new UserRoles(editedUser, role));
+			}
 		}
 
 		return userrepos.save(editedUser);
@@ -148,5 +162,13 @@ public class UserServiceImpl
 	public void deleteUserById(long userid)
 	{
 		userrepos.deleteById(userid);
+	}
+
+	@Override
+	public List<User> fetchUsersByCompany(long companyid)
+	{
+		List<User> userList = userrepos.findUserByCompany(companyid);
+
+		return userList;
 	}
 }

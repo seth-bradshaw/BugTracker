@@ -1,17 +1,20 @@
 package com.portfolio.bugtracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Table(name = "statuses")
 public class Status extends Auditable
@@ -21,10 +24,10 @@ public class Status extends Auditable
     private long statusid;
 
     @NotNull
+    @NonNull
     private String statustype;
 
-    @NotNull
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = {"status"})
-    private Set<TicketStatuses> tickets = new HashSet<>();
+    @JsonIgnore
+    private List<Ticket> tickets = new ArrayList<>();
 }

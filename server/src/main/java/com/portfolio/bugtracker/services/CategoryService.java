@@ -12,7 +12,5 @@ public interface CategoryService
 
     List<Category> findAllCategories();
 
-    Category edit(Category paritallyEditedCategory) throws Exception;
-
     void deleteCategoryById(long categoryid);
 }

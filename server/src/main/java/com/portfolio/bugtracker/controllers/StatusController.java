@@ -2,7 +2,6 @@ package com.portfolio.bugtracker.controllers;
 
 import com.portfolio.bugtracker.models.Status;
 import com.portfolio.bugtracker.services.StatusService;
-import com.portfolio.bugtracker.services.TicketStatusesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +16,6 @@ public class StatusController
 {
     @Autowired
     private StatusService statusService;
-
-    @Autowired
-    private TicketStatusesService statusesService;
 
     @GetMapping(value = "/status/{statusid}", produces = "application/json")
     public ResponseEntity<?> getStatusById(@PathVariable long statusid)
@@ -37,7 +33,6 @@ public class StatusController
         return new ResponseEntity<>(statusList, HttpStatus.OK);
     }
 
-    //get these to work with tickets
     @PostMapping(value = "/statuses", produces = "application/json")
     public ResponseEntity<?> addNewStatus(@RequestBody @Valid Status newStatus) throws Exception
     {
@@ -55,8 +50,6 @@ public class StatusController
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    //patch
 
     @DeleteMapping(value = "/status/{statusid}")
     public ResponseEntity<?> deleteStatusById(@PathVariable long statusid)

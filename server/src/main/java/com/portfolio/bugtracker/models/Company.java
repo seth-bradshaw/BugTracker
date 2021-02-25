@@ -1,10 +1,13 @@
 package com.portfolio.bugtracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -26,10 +29,6 @@ public class Company extends Auditable
     private String companyname;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = {"company"}, allowSetters = true)
-    private Set<CompanyEmployees> employees = new HashSet<>();
-
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = {"company"}, allowSetters = true)
-    private Set<CompanyTickets> tickets = new HashSet<>();
+    @JsonIgnore
+    private List<User> users = new ArrayList<>();
 }

@@ -2,7 +2,6 @@ package com.portfolio.bugtracker.services;
 
 import com.portfolio.bugtracker.models.Status;
 import com.portfolio.bugtracker.models.Ticket;
-import com.portfolio.bugtracker.models.TicketStatuses;
 import com.portfolio.bugtracker.repositories.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,12 +42,7 @@ public class StatusServiceImpl implements StatusService
 
         if (s1.getTickets().size() > 0)
         {
-            for (TicketStatuses ts : s1.getTickets())
-            {
-                Ticket ticket = ticketService.findTicketById(ts.getTicket().getTicketid());
-
-                status.getTickets().add(new TicketStatuses(ticket, ts.getStatus()));
-            }
+            throw new Exception("You cannot add or edit tickets through status!");
         }
 
         return statusRepository.save(status);

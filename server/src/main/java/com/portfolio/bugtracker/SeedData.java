@@ -24,25 +24,10 @@ public class SeedData implements CommandLineRunner
     private UserService userService;
 
     @Autowired
-    private CompanyEmployeesService companyEmployeesService;
-
-    @Autowired
-    private CompanyTicketsService companyTicketsService;
-
-    @Autowired
     private CompanyService companyService;
 
     @Autowired
     private TicketService ticketService;
-
-    @Autowired
-    private TicketSeveritiesService ticketSeveritiesService;
-
-    @Autowired
-    private TicketCategoriesService ticketCategoriesService;
-
-    @Autowired
-    private TicketStatusesService ticketStatusesService;
 
     @Autowired
     private StatusService statusService;
@@ -50,17 +35,11 @@ public class SeedData implements CommandLineRunner
     @Autowired
     private CategoryService categoryService;
 
-    @Autowired
-    private SeverityService severityService;
-
     @Transactional
-
     @Override public void run(String... args) throws Exception
     {
         roleService.deleteAllRoles();
         userService.deleteAllUsers();
-        companyEmployeesService.deleteAllCompanyEmployees();
-        companyTicketsService.deleteAllCompanyTickets();
         companyService.deleteAllCompanies();
         ticketService.deleteAllTickets();
 
@@ -89,9 +68,8 @@ public class SeedData implements CommandLineRunner
         u1.getRoles().add(new UserRoles(u1, r1));
         u1.getRoles().add(new UserRoles(u1, r2));
         u1.getRoles().add(new UserRoles(u1, r3));
-        u1.getCompanies().add(new CompanyEmployees(c1, u1));
+        u1.setCompany(c1);
         u1 = userService.save(u1);
-        companyEmployeesService.save(c1.getCompanyid(), u1.getUserid());
 
         User u2 = new User();
         u2.setUsername("user1");
@@ -99,9 +77,8 @@ public class SeedData implements CommandLineRunner
         u2.setEmail("user1@example.com");
         u2.getRoles().clear();
         u2.getRoles().add(new UserRoles(u2, r2));
-        u2.getCompanies().add(new CompanyEmployees(c1, u2));
+        u2.setCompany(c1);
         u2 = userService.save(u2);
-        companyEmployeesService.save(c1.getCompanyid(), u2.getUserid());
 
         User u3 = new User();
         u3.setUsername("datauser");
@@ -110,72 +87,55 @@ public class SeedData implements CommandLineRunner
         u3.getRoles().clear();
         u3.getRoles().add(new UserRoles(u3, r2));
         u3.getRoles().add(new UserRoles(u3, r3));
-        u3.getCompanies().add(new CompanyEmployees(c1, u3));
+        u3.setCompany(c1);
         u3 = userService.save(u3);
-        companyEmployeesService.save(c1.getCompanyid(), u3.getUserid());
 
         Ticket t1 = new Ticket();
         t1.setUser(u2);
-        t1.setTitle("My first bug reported");
+        t1.setTitle("THIS IS TICKET 1");
         t1.setDescription("I encountered my first error!");
-//        t1.setStatus("In Progress");
         t1.setErrorcode("12345");
-//        t1.setErrorcategory("JS");
         t1.setNotes("Here is some notes about the issue.");
-        t1.setUser(u1);
+        t1.setSeverity("uno");
         t1 = ticketService.save(t1);
-        companyTicketsService.save(c1.getCompanyid(), t1.getTicketid());
 
         Ticket t2 = new Ticket();
         t2.setUser(u2);
-        t2.setTitle("My first bug reported");
+        t2.setTitle("THIS IS TICKET 2");
         t2.setDescription("I encountered my first error!");
         t2.setErrorcode("12345");
-//        t2.setErrorcategory("JS");
         t2.setNotes("Here is some notes about the issue.");
-        t2.setUser(u2);
+        t2.setSeverity("uno");
         t2 = ticketService.save(t2);
-        companyTicketsService.save(c1.getCompanyid(), t2.getTicketid());
 
         Ticket t3 = new Ticket();
         t3.setUser(u3);
-        t3.setTitle("My first bug reported");
+        t3.setTitle("THIS IS TICKET 3");
         t3.setDescription("I encountered my first error!");
-//        t3.setStatus("In Progress");
         t3.setErrorcode("12345");
-//        t3.setErrorcategory("JS");
         t3.setNotes("Here is some notes about the issue.");
-        t3.setUser(u3);
+        t3.setSeverity("uno");
         t3 = ticketService.save(t3);
-        companyTicketsService.save(c1.getCompanyid(), t3.getTicketid());
 
         Status s1 = new Status();
         s1.setStatustype("Not started. Testing");
         s1 = statusService.save(s1);
+        t1.setStatus(s1);
+        t2.setStatus(s1);
+        t3.setStatus(s1);
 
         Category cat1 = new Category();
-//        cat1.setCategoryid(20);
         cat1.setCategorytype("Testing");
+//        cat1.getTickets().add(t1);
+//        cat1.getTickets().add(t2);
+//        cat1.getTickets().add(t3);
         cat1 = categoryService.save(cat1);
+        t1.setCategory(cat1);
+        t2.setCategory(cat1);
+        t3.setCategory(cat1);
 
-        Severity sev1 = new Severity();
-        sev1.setSeveritylevel(3);
-        sev1 = severityService.save(sev1);
-
-        TicketStatuses ts1 = new TicketStatuses(t2, s1);
-//        s1.getTickets().add(ts1);
-//        t2.getStatuses().add(ts1);
-        ts1 = ticketStatusesService.save(ts1);
-
-        TicketCategories tc1 = new TicketCategories(t2, cat1);
-//        cat1.getTickets().add(tc1);
-//        t2.getCategories().add(tc1);
-        tc1 = ticketCategoriesService.save(tc1);
-
-        TicketSeverities tsev1 = new TicketSeverities(t2, sev1);
-//        sev1.getTickets().add(tsev1);
-//        t2.getSeverities().add(tsev1);
-        tsev1 = ticketSeveritiesService.save(tsev1);
-//        ticketService.save(t2);
+        t1 = ticketService.save(t1);
+        t2 = ticketService.save(t2);
+        t3 = ticketService.save(t3);
     }
 }
