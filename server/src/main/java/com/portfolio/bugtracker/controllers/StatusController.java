@@ -17,6 +17,7 @@ public class StatusController
     @Autowired
     private StatusService statusService;
 
+    //authenticated
     @GetMapping(value = "/status/{statusid}", produces = "application/json")
     public ResponseEntity<?> getStatusById(@PathVariable long statusid)
     {
@@ -25,6 +26,7 @@ public class StatusController
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
+    //authenticated
     @GetMapping(value = "/statuses", produces = "application/json")
     public ResponseEntity<?> getAllStatuses()
     {
@@ -33,6 +35,7 @@ public class StatusController
         return new ResponseEntity<>(statusList, HttpStatus.OK);
     }
 
+    //authenticated
     @PostMapping(value = "/statuses", produces = "application/json")
     public ResponseEntity<?> addNewStatus(@RequestBody @Valid Status newStatus) throws Exception
     {
@@ -42,6 +45,7 @@ public class StatusController
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    //admin
     @PutMapping(value = "/status/{statusid}", produces = "application/json")
     public ResponseEntity<?> editFullStatus(@RequestBody @Valid Status editedFullStatus, @PathVariable long statusid) throws Exception
     {
@@ -51,6 +55,7 @@ public class StatusController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //admin
     @DeleteMapping(value = "/status/{statusid}")
     public ResponseEntity<?> deleteStatusById(@PathVariable long statusid)
     {

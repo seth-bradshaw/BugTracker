@@ -1,6 +1,7 @@
 package com.portfolio.bugtracker.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -65,10 +66,51 @@ public class ResourceServerConfig
 				.antMatchers("/oauth/revoke-token",
 						"/logout")
 				.authenticated()
-				.antMatchers("/employees/**")
-				.hasAnyRole("USER")
+				//users
 				.antMatchers("/users/**")
-				.hasAnyRole("ADMIN")
+				.hasAnyRole("ADMIN", "DATA")
+				.antMatchers(HttpMethod.GET, "/users/user/{userid}/limited")
+				.hasAnyRole("ADMIN", "DATA", "USER")
+				.antMatchers(HttpMethod.GET, "/users/users/limited")
+				.hasAnyRole("ADMIN", "DATA", "USER")
+				.antMatchers(HttpMethod.GET, "/users/user/{userid}/limited")
+				.hasAnyRole("ADMIN", "DATA", "USER")
+				.antMatchers(HttpMethod.GET, "/users/users/limited")
+				.hasAnyRole("ADMIN", "DATA", "USER")
+				.antMatchers(HttpMethod.PATCH, "/users/edituser/{userid}")
+				.hasAnyRole("ADMIN", "DATA", "USER")
+				//tickets
+				.antMatchers(HttpMethod.GET, "/tickets/**")
+				.hasAnyRole("ADMIN", "DATA")
+				.antMatchers(HttpMethod.GET, "/tickets/ticket/{ticketid}")
+				.hasAnyRole("ADMIN", "USER", "DATA")
+				.antMatchers(HttpMethod.POST, "/tickets/**")
+				.hasAnyRole("ADMIN", "USER", "DATA")
+				.antMatchers(HttpMethod.PUT, "/tickets/**")
+				.hasAnyRole("ADMIN", "USER", "DATA")
+				.antMatchers(HttpMethod.DELETE, "/tickets/**")
+				.hasAnyRole("ADMIN", "USER", "DATA")
+				//companys
+				.antMatchers("/companies/**")
+				.hasAnyRole("ADMIN", "DATA")
+				//statuses
+				.antMatchers(HttpMethod.GET, "/statuses/**")
+				.hasAnyRole("ADMIN", "USER", "DATA")
+				.antMatchers(HttpMethod.POST, "/statuses/**")
+				.hasAnyRole("ADMIN", "USER", "DATA")
+				.antMatchers(HttpMethod.PUT, "/statuses/**")
+				.hasAnyRole("ADMIN", "DATA")
+				.antMatchers(HttpMethod.DELETE, "/statuses/**")
+				.hasAnyRole("ADMIN", "DATA")
+				//categories
+				.antMatchers(HttpMethod.GET, "/categories/**")
+				.hasAnyRole("ADMIN", "USER", "DATA")
+				.antMatchers(HttpMethod.POST, "/categories/**")
+				.hasAnyRole("ADMIN", "USER", "DATA")
+				.antMatchers(HttpMethod.PUT, "/categories/**")
+				.hasAnyRole("ADMIN", "DATA")
+				.antMatchers(HttpMethod.DELETE, "categories/**")
+				.hasAnyRole("ADMIN", "DATA")
 				.and()
 				.exceptionHandling()
 				.accessDeniedHandler(new OAuth2AccessDeniedHandler());

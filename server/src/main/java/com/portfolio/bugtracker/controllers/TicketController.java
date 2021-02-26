@@ -17,6 +17,7 @@ public class TicketController
     @Autowired
     private TicketService ticketService;
 
+    //admin or user assigned to ticket (STILL NEED TO IMPLEMENT THIS FUNCIONALITY FOR USER ASSIGNED)
     //Endpoint to fetch a single ticket by id. Will return the requested ticket.
     @GetMapping(value = {"/ticket/{ticketid}"}, produces = "application/json")
     public ResponseEntity<?> fetchSingleTicket(@PathVariable long ticketid) throws Exception
@@ -26,6 +27,7 @@ public class TicketController
         return new ResponseEntity<>(ticket, HttpStatus.OK);
     }
 
+    //admin
     @GetMapping(value = "/tickets", produces = "application/json")
     public ResponseEntity<?> fetchingAllTickets()
     {
@@ -34,8 +36,9 @@ public class TicketController
         return new ResponseEntity<>(ticketList, HttpStatus.OK);
     }
 
+    //authenticated
     //Endpoint to add a new ticket. Will return created status, but not the new ticket object.
-    @PostMapping(value = {"/ticket/add"}, consumes = "application/json")
+    @PostMapping(value = {"/tickets"}, consumes = "application/json")
     public ResponseEntity<?> addNewTicket(@Valid @RequestBody Ticket newTicket) throws Exception
     {
         newTicket.setTicketid(0);
@@ -44,6 +47,7 @@ public class TicketController
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    //authenticated
     //Endpoint to edit an existing ticket by id. Will return successful status, but not the new ticket object.
     @PutMapping(value = {"/ticket/{ticketid}"}, consumes = "application/json")
     public ResponseEntity<?> editExistingTicket(@PathVariable long ticketid, @Valid @RequestBody Ticket editedTicket) throws Exception
@@ -54,6 +58,7 @@ public class TicketController
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
+    //authenticated
     //Endpoint to delete an existing ticket.
     @DeleteMapping(value = {"/ticket/{ticketid}"})
     public ResponseEntity<?> deleteTicket(@PathVariable long ticketid)

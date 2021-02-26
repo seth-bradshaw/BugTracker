@@ -17,6 +17,7 @@ public class CategoryContoller
     @Autowired
     private CategoryService categoryService;
 
+    //authenticated
     @GetMapping(value = "/category/{categoryid}", produces = "application/json")
     public ResponseEntity<?> getCategoryById(@PathVariable long categoryid)
     {
@@ -25,6 +26,7 @@ public class CategoryContoller
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
+    //authenticated
     @GetMapping(value = "/categories", produces = "application/json")
     public ResponseEntity<?> getAllCategories()
     {
@@ -33,6 +35,7 @@ public class CategoryContoller
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 
+    //authenticated
     @PostMapping(value = "/categories", consumes = "application/json")
     public ResponseEntity<?> addNewCategory(@RequestBody @Valid Category newCategory) throws Exception
     {
@@ -42,6 +45,7 @@ public class CategoryContoller
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //admin
     @PutMapping(value = "/category/{categoryid}", consumes = "application/json")
     public ResponseEntity<?> editExistingCategory(@RequestBody @Valid Category editedFullCategory, @PathVariable long categoryid) throws Exception
     {
@@ -51,6 +55,7 @@ public class CategoryContoller
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //admin
     @DeleteMapping(value = "/category/{categoryid}")
     public ResponseEntity<?> deleteCategoryById(@PathVariable long categoryid)
     {

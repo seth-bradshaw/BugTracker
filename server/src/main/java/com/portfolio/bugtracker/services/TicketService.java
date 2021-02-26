@@ -3,6 +3,7 @@ package com.portfolio.bugtracker.services;
 import com.portfolio.bugtracker.models.Ticket;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * The interface Ticket service.
@@ -32,4 +33,6 @@ public interface TicketService
     void deleteTicketById(long ticketid);
 
     List<Ticket> findAllTickets();
+
+//    Set<Ticket> fetchTicketsByCompany(long companyid);
 }

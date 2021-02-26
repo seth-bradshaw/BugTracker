@@ -1,10 +1,7 @@
 package com.portfolio.bugtracker.services;
 
 
-import com.portfolio.bugtracker.models.Company;
-import com.portfolio.bugtracker.models.Role;
-import com.portfolio.bugtracker.models.User;
-import com.portfolio.bugtracker.models.UserRoles;
+import com.portfolio.bugtracker.models.*;
 import com.portfolio.bugtracker.repositories.RoleRepository;
 import com.portfolio.bugtracker.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +33,9 @@ public class UserServiceImpl
 
 	@Autowired
 	private CompanyService companyService;
+
+	@Autowired
+	private TicketService ticketService;
 	
 	@Override
 	public User findByName(String name)
@@ -49,7 +49,7 @@ public class UserServiceImpl
 	}
 	
 	@Override
-	public User save(User user)
+	public User save(User user) throws Exception
 	{
 		User newUser = new User();
 		
@@ -76,6 +76,13 @@ public class UserServiceImpl
 			newUser.getRoles()
 					.add(new UserRoles(newUser,
 							addRole));
+		}
+
+		newUser.getTickets().clear();
+		for (UserTickets ut : user.getTickets())
+		{
+			Ticket ticket = ticketService.findTicketById(ut.getTicket().getTicketid());
+			newUser.getTickets().add(new UserTickets(newUser, ticket));
 		}
 
 		newUser.setCompany(user.getCompany());
@@ -146,7 +153,6 @@ public class UserServiceImpl
 		}
 
 		//DOESN'T WORK FOR PATCH OR PUT EDITING ROLES
-		editedUser.getRoles().clear();
 		if (partiallyEditedUser.getRoles().size() > 0)
 		{
 			for (UserRoles ur : partiallyEditedUser.getRoles())
@@ -154,6 +160,15 @@ public class UserServiceImpl
 				Role role = rolerepos.findById(ur.getRole().getRoleid())
 						.orElseThrow(() -> new EntityNotFoundException("Role id " + ur.getRole().getRoleid() + " not found!"));
 				editedUser.getRoles().add(new UserRoles(editedUser, role));
+			}
+		}
+
+		if (partiallyEditedUser.getTickets().size() > 0)
+		{
+			for (UserTickets ut : partiallyEditedUser.getTickets())
+			{
+				Ticket t = ticketService.findTicketById(ut.getTicket().getTicketid());
+				editedUser.getTickets().add(new UserTickets(editedUser, t));
 			}
 		}
 
@@ -172,5 +187,37 @@ public class UserServiceImpl
 		List<User> userList = userrepos.findUserByCompany(companyid);
 
 		return userList;
+	}
+
+	//both limited methods return fields that aren't specified, so we may need to do a custom sql query, but for now this is fine.
+    @Override
+    public List<User> findAllUsersLimited()
+    {
+    	List<User> userList = new ArrayList<>();
+		userrepos.findAll().iterator().forEachRemaining(userList::add);
+
+		List<User> rtnUserList = new ArrayList<>();
+		for (User u : userList)
+		{
+			User limitedUser = new User();
+			limitedUser.setUsername(u.getUsername());
+			limitedUser.setEmail(u.getEmail());
+
+			rtnUserList.add(limitedUser);
+		}
+
+        return rtnUserList;
+    }
+
+	@Override
+	public User findUserByIdLimited(long userid)
+	{
+		User u = userrepos.findById(userid)
+				.orElseThrow(() -> new EntityNotFoundException("User with id " + userid + " not found!"));
+		User rtnUser = new User();
+		rtnUser.setUsername(u.getUsername());
+		rtnUser.setEmail(u.getEmail());
+
+		return rtnUser;
 	}
 }
