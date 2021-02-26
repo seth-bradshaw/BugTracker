@@ -31,10 +31,9 @@ public class Ticket extends Auditable
     private String notes;
     private String severity;
 
-    @OneToOne
-    @JoinColumn(name = "userid")
-    @JsonIgnoreProperties(value = {"company"}, allowSetters = true)
-    private User user;
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = {"ticket"}, allowSetters = true)
+    private Set<UserTickets> users = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties(value = {"tickets"})

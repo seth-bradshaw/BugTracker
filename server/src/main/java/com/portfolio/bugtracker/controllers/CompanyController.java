@@ -3,6 +3,7 @@ import com.portfolio.bugtracker.models.Company;
 import com.portfolio.bugtracker.models.Ticket;
 import com.portfolio.bugtracker.models.User;
 import com.portfolio.bugtracker.services.CompanyService;
+import com.portfolio.bugtracker.services.TicketService;
 import com.portfolio.bugtracker.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
+@RequestMapping(value = "/companies")
 @RestController
 public class CompanyController
 {
@@ -21,6 +24,10 @@ public class CompanyController
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TicketService ticketService;
+
+    //admin
     //Endpoint to access a company by id. Will only return the requested company object.
     @GetMapping(value = "/company/{companyid}", produces = "application/json")
     public ResponseEntity<?> fetchUserById(@PathVariable long companyid) throws Exception
@@ -30,6 +37,7 @@ public class CompanyController
         return new ResponseEntity<>(rtnComp, HttpStatus.OK);
     }
 
+    //admin
     //Endpoint to access a specific companies list of employees.
     @GetMapping(value = "/company/{companyid}/users", produces = "application/json")
     public ResponseEntity<?> fetchCompanyEmployees(@PathVariable long companyid)
@@ -39,17 +47,16 @@ public class CompanyController
         return new ResponseEntity<>(companyUsers, HttpStatus.OK);
     }
 
-//      CUSTOM QUERY NEEDED. I NEED CHRIS
-
-//    //Endpoint to access a specific companies list of tickets.
+//    //admin
 //    @GetMapping(value = "/company/{companyid}/tickets", produces = "application/json")
 //    public ResponseEntity<?> fetchCompanyTickets(@PathVariable long companyid) throws Exception
 //    {
-//        List<Ticket> companyTickets = companyTicketsService.fetchCompanyTickets(companyid);
+//        Set<Ticket> companyTickets = ticketService.fetchTicketsByCompany(companyid);
 //
 //        return new ResponseEntity<>(companyTickets, HttpStatus.OK);
 //    }
 
+    //admin
     //Endpoint to create a new company. This will only return a created status, no body will be returned from the server.
     @PostMapping(value = "/company/add", consumes = "application/json")
     public ResponseEntity<?> addNewCompany(@Valid @RequestBody Company newCompany) throws Exception
@@ -60,6 +67,7 @@ public class CompanyController
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    //admin
     //Endpoint to edit an existing company by id. This will only return a status.
     @PutMapping(value = "/company/{companyid}", consumes = "application/json")
     public ResponseEntity<?> editExistingCompany(@PathVariable long companyid, @Valid @RequestBody Company newCompany) throws Exception
@@ -70,6 +78,7 @@ public class CompanyController
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
+    //admin
     //Endpoint to delete an existing company by id.
     @DeleteMapping(value = "/company/{companyid}")
     public ResponseEntity<?> deleteCompany(@PathVariable long companyid)

@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The type Ticket service.
@@ -44,23 +46,26 @@ public class TicketServiceImpl implements TicketService
             newTicket.setTicketid(ticket.getTicketid());
         }
 
-        if (ticket.getUser() == null)
+        if (ticket.getUsers().size() > 0)
         {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            User user;
             if (authentication != null)
             {
-                User user = userService.findByUsername(authentication.getName());
-                newTicket.setUser(user);
+                user = userService.findByUsername(authentication.getName());
+                newTicket.getUsers().add(new UserTickets(user, newTicket));
             }
-//            else
-//            {
+            else
+            {
 //                throw new Exception("You must be logged in to access this!");
-//            }
+            }
         }
         else
         {
+//            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//            User user = userService.findByUsername(authentication.getName());
             //temp fix for seeddata
-            newTicket.setUser(ticket.getUser());
+            newTicket.setUsers(ticket.getUsers());
         }
 
         newTicket.setTitle(ticket.getTitle());
@@ -110,4 +115,21 @@ public class TicketServiceImpl implements TicketService
 
         return ticketList;
     }
+//    FIX THIS BEFORE DEPLOYMENT
+//    @Override
+//    public Set<Ticket> fetchTicketsByCompany(long companyid)
+//    {
+//        List<Ticket> ticketList = new ArrayList<>();
+//        ticketRepository.findAll().iterator().forEachRemaining(ticketList::add);
+//        Set<Ticket> rtnList = new HashSet<>();
+//        for (Ticket t : ticketList)
+//        {
+//            if (t.getUser().getCompany().getCompanyid() == companyid)
+//            {
+//                rtnList.add(t);
+//            }
+//        }
+//
+//        return rtnList;
+//    }
 }

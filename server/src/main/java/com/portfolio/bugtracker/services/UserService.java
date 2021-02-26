@@ -27,7 +27,7 @@ public interface UserService
 	 * @param user the user
 	 * @return the user
 	 */
-	User save(User user);
+	User save(User user) throws Exception;
 	
 	/**
 	 * Delete all users.
@@ -52,4 +52,8 @@ public interface UserService
 	void deleteUserById(long userid);
 
     List<User> fetchUsersByCompany(long companyid);
+
+    List<User> findAllUsersLimited();
+
+	User findUserByIdLimited(long userid);
 }

@@ -91,31 +91,32 @@ public class SeedData implements CommandLineRunner
         u3 = userService.save(u3);
 
         Ticket t1 = new Ticket();
-        t1.setUser(u2);
         t1.setTitle("THIS IS TICKET 1");
         t1.setDescription("I encountered my first error!");
         t1.setErrorcode("12345");
         t1.setNotes("Here is some notes about the issue.");
         t1.setSeverity("uno");
         t1 = ticketService.save(t1);
+        t1.getUsers().add(new UserTickets(u1, t1));
 
         Ticket t2 = new Ticket();
-        t2.setUser(u2);
         t2.setTitle("THIS IS TICKET 2");
         t2.setDescription("I encountered my first error!");
         t2.setErrorcode("12345");
         t2.setNotes("Here is some notes about the issue.");
         t2.setSeverity("uno");
         t2 = ticketService.save(t2);
+        t1.getUsers().add(new UserTickets(u1, t2));
 
         Ticket t3 = new Ticket();
-        t3.setUser(u3);
         t3.setTitle("THIS IS TICKET 3");
         t3.setDescription("I encountered my first error!");
         t3.setErrorcode("12345");
         t3.setNotes("Here is some notes about the issue.");
         t3.setSeverity("uno");
         t3 = ticketService.save(t3);
+        t1.getUsers().add(new UserTickets(u1, t3));
+        t1.getUsers().add(new UserTickets(u2, t3));
 
         Status s1 = new Status();
         s1.setStatustype("Not started. Testing");
@@ -137,5 +138,13 @@ public class SeedData implements CommandLineRunner
         t1 = ticketService.save(t1);
         t2 = ticketService.save(t2);
         t3 = ticketService.save(t3);
+        u1.getTickets().add(new UserTickets(u1, t1));
+        u1.getTickets().add(new UserTickets(u1, t2));
+        u1.getTickets().add(new UserTickets(u1, t3));
+        u1 = userService.save(u1);
+        u2.getTickets().add(new UserTickets(u2, t2));
+        u2 = userService.save(u2);
+        u3.getTickets().add(new UserTickets(u3, t3));
+        u3 = userService.save(u3);
     }
 }

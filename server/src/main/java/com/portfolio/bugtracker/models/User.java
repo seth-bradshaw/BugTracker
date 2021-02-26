@@ -68,6 +68,10 @@ public class User extends Auditable
 	@JsonIgnoreProperties(value = "user",
 	                      allowSetters = true)
 	private Set<UserRoles> roles = new HashSet<>();
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties(value = "user", allowSetters = true)
+	private Set<UserTickets> tickets = new HashSet<>();
 	
 	/**
 	 * Sets password encrypt.

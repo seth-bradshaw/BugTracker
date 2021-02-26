@@ -70,7 +70,7 @@ public class OauthController
 			@RequestBody
 					UserMinimum newminuser)
 			throws
-			URISyntaxException
+			Exception
 	{
 		// Create the user
 		User newuser = new User();
