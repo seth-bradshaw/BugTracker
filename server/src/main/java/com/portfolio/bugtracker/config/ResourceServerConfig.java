@@ -54,66 +54,68 @@ public class ResourceServerConfig
 		// authenticated = any authenticated, signed in, user
 		// hasAnyRole = must be authenticated and be assigned this role!
 		http.authorizeRequests()
-				.antMatchers("/",
-						"/h2-console/**",
-						"/swagger-resources/**",
-						"/swagger-resource/**",
-						"/swagger-ui.html",
-						"/v2/api-docs",
-						"/webjars/**",
-						"/createnewuser")
-				.permitAll()
-				.antMatchers("/oauth/revoke-token",
-						"/logout")
-				.authenticated()
+				.antMatchers("/**")
+				.permitAll();
+//				.antMatchers("/",
+//						"/h2-console/**",
+//						"/swagger-resources/**",
+//						"/swagger-resource/**",
+//						"/swagger-ui.html",
+//						"/v2/api-docs",
+//						"/webjars/**",
+//						"/createnewuser")
+//				.permitAll()
+//				.antMatchers("/oauth/revoke-token",
+//						"/logout")
+//				.authenticated()
 				//users
-				.antMatchers("/users/**")
-				.hasAnyRole("ADMIN", "DATA")
-				.antMatchers(HttpMethod.GET, "/users/user/{userid}/limited")
-				.hasAnyRole("ADMIN", "DATA", "USER")
-				.antMatchers(HttpMethod.GET, "/users/users/limited")
-				.hasAnyRole("ADMIN", "DATA", "USER")
-				.antMatchers(HttpMethod.GET, "/users/user/{userid}/limited")
-				.hasAnyRole("ADMIN", "DATA", "USER")
-				.antMatchers(HttpMethod.GET, "/users/users/limited")
-				.hasAnyRole("ADMIN", "DATA", "USER")
-				.antMatchers(HttpMethod.PATCH, "/users/edituser/{userid}")
-				.hasAnyRole("ADMIN", "DATA", "USER")
-				//tickets
-				.antMatchers(HttpMethod.GET, "/tickets/**")
-				.hasAnyRole("ADMIN", "DATA")
-				.antMatchers(HttpMethod.GET, "/tickets/ticket/{ticketid}")
-				.hasAnyRole("ADMIN", "USER", "DATA")
-				.antMatchers(HttpMethod.POST, "/tickets/**")
-				.hasAnyRole("ADMIN", "USER", "DATA")
-				.antMatchers(HttpMethod.PUT, "/tickets/**")
-				.hasAnyRole("ADMIN", "USER", "DATA")
-				.antMatchers(HttpMethod.DELETE, "/tickets/**")
-				.hasAnyRole("ADMIN", "USER", "DATA")
-				//companys
-				.antMatchers("/companies/**")
-				.hasAnyRole("ADMIN", "DATA")
-				//statuses
-				.antMatchers(HttpMethod.GET, "/statuses/**")
-				.hasAnyRole("ADMIN", "USER", "DATA")
-				.antMatchers(HttpMethod.POST, "/statuses/**")
-				.hasAnyRole("ADMIN", "USER", "DATA")
-				.antMatchers(HttpMethod.PUT, "/statuses/**")
-				.hasAnyRole("ADMIN", "DATA")
-				.antMatchers(HttpMethod.DELETE, "/statuses/**")
-				.hasAnyRole("ADMIN", "DATA")
-				//categories
-				.antMatchers(HttpMethod.GET, "/categories/**")
-				.hasAnyRole("ADMIN", "USER", "DATA")
-				.antMatchers(HttpMethod.POST, "/categories/**")
-				.hasAnyRole("ADMIN", "USER", "DATA")
-				.antMatchers(HttpMethod.PUT, "/categories/**")
-				.hasAnyRole("ADMIN", "DATA")
-				.antMatchers(HttpMethod.DELETE, "categories/**")
-				.hasAnyRole("ADMIN", "DATA")
-				.and()
-				.exceptionHandling()
-				.accessDeniedHandler(new OAuth2AccessDeniedHandler());
+//				.antMatchers("/users/**")
+//				.hasAnyRole("ADMIN", "DATA")
+//				.antMatchers(HttpMethod.GET, "/users/user/{userid}/limited")
+//				.hasAnyRole("ADMIN", "DATA", "USER")
+//				.antMatchers(HttpMethod.GET, "/users/users/limited")
+//				.hasAnyRole("ADMIN", "DATA", "USER")
+//				.antMatchers(HttpMethod.GET, "/users/user/{userid}/limited")
+//				.hasAnyRole("ADMIN", "DATA", "USER")
+//				.antMatchers(HttpMethod.GET, "/users/users/limited")
+//				.hasAnyRole("ADMIN", "DATA", "USER")
+//				.antMatchers(HttpMethod.PATCH, "/users/edituser/{userid}")
+//				.hasAnyRole("ADMIN", "DATA", "USER")
+//				//tickets
+//				.antMatchers(HttpMethod.GET, "/tickets/**")
+//				.hasAnyRole("ADMIN", "DATA")
+//				.antMatchers(HttpMethod.GET, "/tickets/ticket/{ticketid}")
+//				.hasAnyRole("ADMIN", "USER", "DATA")
+//				.antMatchers(HttpMethod.POST, "/tickets/**")
+//				.hasAnyRole("ADMIN", "USER", "DATA")
+//				.antMatchers(HttpMethod.PUT, "/tickets/**")
+//				.hasAnyRole("ADMIN", "USER", "DATA")
+//				.antMatchers(HttpMethod.DELETE, "/tickets/**")
+//				.hasAnyRole("ADMIN", "USER", "DATA")
+//				//companys
+//				.antMatchers("/companies/**")
+//				.hasAnyRole("ADMIN", "DATA")
+//				//statuses
+//				.antMatchers(HttpMethod.GET, "/statuses/**")
+//				.hasAnyRole("ADMIN", "USER", "DATA")
+//				.antMatchers(HttpMethod.POST, "/statuses/**")
+//				.hasAnyRole("ADMIN", "USER", "DATA")
+//				.antMatchers(HttpMethod.PUT, "/statuses/**")
+//				.hasAnyRole("ADMIN", "DATA")
+//				.antMatchers(HttpMethod.DELETE, "/statuses/**")
+//				.hasAnyRole("ADMIN", "DATA")
+//				//categories
+//				.antMatchers(HttpMethod.GET, "/categories/**")
+//				.hasAnyRole("ADMIN", "USER", "DATA")
+//				.antMatchers(HttpMethod.POST, "/categories/**")
+//				.hasAnyRole("ADMIN", "USER", "DATA")
+//				.antMatchers(HttpMethod.PUT, "/categories/**")
+//				.hasAnyRole("ADMIN", "DATA")
+//				.antMatchers(HttpMethod.DELETE, "categories/**")
+//				.hasAnyRole("ADMIN", "DATA")
+//				.and()
+//				.exceptionHandling()
+//				.accessDeniedHandler(new OAuth2AccessDeniedHandler());
 		
 		// http.requiresChannel().anyRequest().requiresSecure(); required for https
 		
