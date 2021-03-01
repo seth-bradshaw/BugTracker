@@ -7,6 +7,8 @@ import EditTicket from './Tickets/EditTicket';
 import NoTickets from './Tickets/NoTickets';
 import TicketLoading from './Tickets/TicketLoading';
 import PostTicket from './Tickets/PostTicket';
+import TicketBoard from './Tickets/TicketBoard';
+import TestTicketBoard from './Tickets/TestTicketBoard';
 import StatusFilter from './StatusFilter';
 import { filterTicketsByNotStarted,  filterTicketsByInProgress} from '../store/actions/TicketActions';
 
@@ -107,6 +109,7 @@ export default function Dashboard() {
         }
         <button onClick={() => push('/companyemployees')}>COMPANY EMPLOYEES TEMP BUTTON</button>
       </Container>
+      <TestTicketBoard/>
     </>
   );
 }

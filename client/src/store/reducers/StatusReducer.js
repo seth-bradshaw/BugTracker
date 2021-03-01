@@ -1,0 +1,1 @@
+status.arr({...arr, ticket})
