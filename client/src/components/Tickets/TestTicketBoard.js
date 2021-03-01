@@ -1,12 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import {Header, Modal} from 'semantic-ui-react';
+import SingleTicket from './SingleTicket';
 
 export default function TestTicketBoard() {
+    //I'm thinking we pass tickets through props so that this component can be used for every trello board
     const [tickets, setTickets] = useState([]);
     const [completed, setCompleted] = useState([])
     const [notStarted, setNotStarted] = useState([])
     const [inProgress, setInProgress] = useState([])
     const [statuses, setStatuses] = useState([])
+    const [showTicketModal, setShowTicketModal] = useState(false)
 
     useEffect(() => {
         axios.get('http://localhost:2019/tickets/tickets')
@@ -67,6 +71,12 @@ export default function TestTicketBoard() {
         }
     }
 
+    const popSingleTicket = (e, tkt) => 
+    {
+        e.preventDefault()
+        return <SingleTicket ticket={tkt} />
+    }
+
     // const useCreateStatusState = (status) => {
     //     const [statusState, setStatusState] = useState([])
 
@@ -75,24 +85,42 @@ export default function TestTicketBoard() {
     //     return status
     // }
 
-    // const [testState, setTestState] = useCreateStatusState();
-
     return (
-        <div style={{border:"2px solid red", display:"flex"}}>
+        <div style={{border:"2px solid red", display:"flex", justifyContent:"space-evenly"}}>
             {
                 statuses.map((status) => 
                 {
                     return (
-                        <div onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e, status)}>
+                        <div onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e, status)} style={{border:"2px solid green"}}>
                             <h3>{status.statustype}</h3>
                             {
                                 tickets.map((tkt) => {
                                     if(tkt.status.statustype === status.statustype)
                                     {
                                         return(
-                                        <div draggable onDragStart={(e) => onDragStart(e, tkt.ticketid)}>
-                                            <h4>{tkt.title}</h4>
-                                        </div>
+                                        <Modal
+                                            onClose={() => setShowTicketModal(false)}
+                                            onOpen={() => setShowTicketModal(true)}
+                                            trigger={
+                                                <div draggable onDragStart={(e) => onDragStart(e, tkt.ticketid)} onClick={(e) => popSingleTicket(e, tkt)}>
+                                                    <h4>{tkt.title}</h4>
+                                                </div>
+                                            }
+                                        >
+                                            <Modal.Header>{tkt.title}</Modal.Header>
+                                            <Modal.Content>
+                                                <Modal.Description>
+                                                    <h4>Category:</h4>
+                                                    <p>{tkt.category.categorytype}</p>
+                                                    <h4>Error Code:</h4>
+                                                    <p>{tkt.errorcode}</p>
+                                                    <h4>Severity:</h4>
+                                                    <p>{tkt.severity}</p>
+                                                    <h4>Description:</h4>
+                                                    <p>{tkt.description}</p>
+                                                </Modal.Description>
+                                            </Modal.Content>
+                                        </Modal>
                                         )
                                     }
                                 })
@@ -101,39 +129,6 @@ export default function TestTicketBoard() {
                     )
                 })
             }
-            {/* <div onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e, "Not started. Testing")}>
-                <h3>NOT STARTED</h3>
-                {
-                    tickets.map((tkt) => {
-                        if(tkt.status.statustype === "Not started. Testing")
-                        {
-                            return(
-                            <div draggable onDragStart={(e) => onDragStart(e, tkt.ticketid)}>
-                                <h4>{tkt.title}</h4>
-                                <p>PLEASE WORK</p>
-                            </div>
-                            )
-                        }
-                    })
-                } 
-            </div>
-            <div onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e, "Completed. Testing")}>
-                <h3>COMPLETED</h3>
-                {
-                    tickets.map((tkt) => {
-                        if(tkt.status.statustype === "Completed. Testing")
-                        {
-                            return(
-                            <div draggable onDragStart={(e) => onDragStart(e, tkt.ticketid)}>
-                                <h4>{tkt.title}</h4>
-                                <p>PLEASE WORK</p>
-                            </div>
-                            )
-                        }
-                    })
-                }
-            </div> */}
         </div>
-        
     )
 }
