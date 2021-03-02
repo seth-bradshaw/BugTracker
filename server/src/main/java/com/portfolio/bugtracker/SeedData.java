@@ -119,14 +119,14 @@ public class SeedData implements CommandLineRunner
         t1.getUsers().add(new UserTickets(u2, t3));
 
         Status s1 = new Status();
-        s1.setStatustype("Not started");
+        s1.setStatustype("Not Started");
         s1 = statusService.save(s1);
         t1.setStatus(s1);
         t2.setStatus(s1);
 //        t3.setStatus(s1);
 
         Status s2 = new Status();
-        s2.setStatustype("In progress");
+        s2.setStatustype("In Progress");
         s2 = statusService.save(s2);
 
         Status s3 = new Status();
