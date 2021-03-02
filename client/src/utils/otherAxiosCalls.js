@@ -38,15 +38,18 @@ export const register = (newUser) => {
     });
 };
 
-export const postTicket = (newTicket, companyid) => {
-  const { title, description, status, errorCode, errorCategory } = newTicket;
-  return axiosWithAuth()
-    .post(`/company/${companyid}/ticket/add`, {
+export const postTicket = (newTicket) => {
+  const { title, description, status, errorcode, category, notes, severity } = newTicket;
+  // TEMP COMMENT OUT SINCE WE DONT HAVE ANT MATCHERS return axiosWithAuth()
+  axios
+    .post(`http://localhost:2019/tickets/tickets`, {
       title: title,
       description: description,
       status: status,
-      errorCode: errorCode,
-      errorCategory: errorCategory,
+      errorcode: errorcode,
+      category: category,
+      notes: notes,
+      severity: severity
     })
     .then((res) => {
       console.log('SUCCESS POSTING TICKET==>', res);
