@@ -36,6 +36,14 @@ public class TicketController
         return new ResponseEntity<>(ticketList, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/tickets/user/{userid}", produces = "application/json")
+    public ResponseEntity<?> fetchTicketsByUserId(@PathVariable long userid)
+    {
+        List<Ticket> ticketList = ticketService.findAllTicketsByUserId(userid);
+
+        return new ResponseEntity<>(ticketList, HttpStatus.OK);
+    }
+
     //authenticated
     //Endpoint to add a new ticket. Will return created status, but not the new ticket object.
     @PostMapping(value = {"/tickets"}, consumes = "application/json")

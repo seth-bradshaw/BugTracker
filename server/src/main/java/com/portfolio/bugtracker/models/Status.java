@@ -28,6 +28,6 @@ public class Status extends Auditable
     private String statustype;
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
+    @JsonIgnoreProperties(value = {"status", "users", "category"}, allowSetters = true)
     private List<Ticket> tickets = new ArrayList<>();
 }

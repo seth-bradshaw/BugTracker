@@ -61,6 +61,13 @@ export const postTicket = (newTicket) => {
     });
 };
 
-// export const fetchTickets = () => {
-//   return axiosWithAuth().get()
-// }
+export const getStatusesByUser = () => {
+  axiosWithAuth()
+    .get(`http://localhost:2019/statuses/statuses/user`)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    })
+}

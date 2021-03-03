@@ -153,7 +153,7 @@ public class SeedData implements CommandLineRunner
         u1 = userService.save(u1);
         u2.getTickets().add(new UserTickets(u2, t2));
         u2 = userService.save(u2);
-        u3.getTickets().add(new UserTickets(u3, t3));
+//        u3.getTickets().add(new UserTickets(u3, t3));
         u3 = userService.save(u3);
     }
 }

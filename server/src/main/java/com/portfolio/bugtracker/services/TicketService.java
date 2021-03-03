@@ -34,5 +34,7 @@ public interface TicketService
 
     List<Ticket> findAllTickets();
 
+    List<Ticket> findAllTicketsByUserId(long userid);
+
 //    Set<Ticket> fetchTicketsByCompany(long companyid);
 }
