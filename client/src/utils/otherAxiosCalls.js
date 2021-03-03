@@ -8,20 +8,20 @@ const baseAxiosCall = () => {
   });
 };
 
-export const login = (loginCreds) => {
+export const login = loginCreds => {
   const { username, password } = loginCreds;
 
   return baseAxiosCall()
     .post('/login', { username: username, password: password })
-    .then((res) => {
+    .then(res => {
       return res;
     })
-    .catch((err) => {
+    .catch(err => {
       return err;
     });
 };
 
-export const register = (newUser) => {
+export const register = newUser => {
   const { username, password, email } = newUser;
 
   return baseAxiosCall()
@@ -30,16 +30,24 @@ export const register = (newUser) => {
       password: password,
       email: email,
     })
-    .then((res) => {
+    .then(res => {
       return res;
     })
-    .catch((err) => {
+    .catch(err => {
       return err;
     });
 };
 
-export const postTicket = (newTicket) => {
-  const { title, description, status, errorcode, category, notes, severity } = newTicket;
+export const postTicket = newTicket => {
+  const {
+    title,
+    description,
+    status,
+    errorcode,
+    category,
+    notes,
+    severity,
+  } = newTicket;
   // TEMP COMMENT OUT SINCE WE DONT HAVE ANT MATCHERS return axiosWithAuth()
   axios
     .post(`http://localhost:2019/tickets/tickets`, {
@@ -49,18 +57,25 @@ export const postTicket = (newTicket) => {
       errorcode: errorcode,
       category: category,
       notes: notes,
-      severity: severity
+      severity: severity,
     })
-    .then((res) => {
+    .then(res => {
       console.log('SUCCESS POSTING TICKET==>', res);
       return res;
     })
-    .catch((err) => {
+    .catch(err => {
       console.log('ERROR POSTING TICKET==>', err);
       return err;
     });
 };
 
-// export const fetchTickets = () => {
-//   return axiosWithAuth().get()
-// }
+export const getStatusesByUser = () => {
+  axiosWithAuth()
+    .get(`http://localhost:2019/statuses/statuses/user`)
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};

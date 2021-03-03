@@ -12,7 +12,15 @@ import CurrentEmployeeTickets from './components/Tickets/CurrentEmployeeTickets'
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser } from './store/actions/UserActions';
 import CompanyEmployees from './components/Employees/CompanyEmployees';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+} from 'reactstrap';
 
 function App() {
   const [collapsed, setCollapsed] = useState(true);
@@ -34,7 +42,10 @@ function App() {
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/postticket" component={PostTicket} />
         <PrivateRoute path="/putticket" component={PutTicket} />
-        <PrivateRoute path="/currentemployeetickets" component={CurrentEmployeeTickets} />
+        <PrivateRoute
+          path="/currentemployeetickets"
+          component={CurrentEmployeeTickets}
+        />
         <PrivateRoute path="/companyemployees" component={CompanyEmployees} />
       </Switch>
     </div>

@@ -8,7 +8,7 @@ export default function EditTicket({ ticketData }) {
   const [getIsEditing, setIsEditing] = useState(false);
   const { ticket } = ticketData;
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     setIsEditing(!getIsEditing);
   };
 

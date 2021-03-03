@@ -1,5 +1,5 @@
-import React from 'react'
-import { Dropdown, Input } from 'semantic-ui-react'
+import React from 'react';
+import { Dropdown, Input } from 'semantic-ui-react';
 
 const tagOptions = [
   {
@@ -56,21 +56,21 @@ const tagOptions = [
     value: 'Discussion',
     label: { color: 'green', empty: true, circular: true },
   },
-]
+];
 
 const StatusFilter = () => (
-  <Dropdown text='Filter Posts' multiple icon='filter'>
+  <Dropdown text="Filter Posts" multiple icon="filter">
     <Dropdown.Menu>
-      <Input icon='search' iconPosition='left' className='search' />
+      <Input icon="search" iconPosition="left" className="search" />
       <Dropdown.Divider />
-      <Dropdown.Header icon='tags' content='Tag Label' />
+      <Dropdown.Header icon="tags" content="Tag Label" />
       <Dropdown.Menu scrolling>
-        {tagOptions.map((option) => (
+        {tagOptions.map(option => (
           <Dropdown.Item key={option.value} {...option} />
         ))}
       </Dropdown.Menu>
     </Dropdown.Menu>
   </Dropdown>
-)
+);
 
-export default StatusFilter
+export default StatusFilter;

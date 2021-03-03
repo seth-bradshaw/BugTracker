@@ -27,20 +27,20 @@ export default function PutTicket({ ticket }) {
   //         })
   // }, [])
 
-  const putTicketRequest = (newTicket) => {
+  const putTicketRequest = newTicket => {
     setIsSubmitting(true);
     axiosWithAuth()
       .put(`/company/4/ticket/${ticket.ticketid}`, newTicket)
-      .then((res) => {
+      .then(res => {
         console.log('SUCCESS EDITING TICKET==>', res);
         setIsSubmitting(false);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log('ERROR EDITING TICKET==>', err);
       });
   };
 
-  const changeHandler = (e) => {
+  const changeHandler = e => {
     const { name, value } = e.target;
     setEditTicket({ ...editTicket, [name]: value });
   };

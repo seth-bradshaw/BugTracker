@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @RequestMapping(value = "/statuses")
 @RestController
@@ -26,6 +27,14 @@ public class StatusController
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/statuses/user", produces = "application/json")
+    public ResponseEntity<?> getStatusesByCompanyId() throws Exception
+    {
+        Set<Status> statusList = statusService.findStatusByUser();
+
+        return new ResponseEntity<>(statusList, HttpStatus.OK);
+    }
+
     //authenticated
     @GetMapping(value = "/statuses", produces = "application/json")
     public ResponseEntity<?> getAllStatuses()
@@ -34,6 +43,8 @@ public class StatusController
 
         return new ResponseEntity<>(statusList, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/status")
 
     //authenticated
     @PostMapping(value = "/statuses", produces = "application/json")
