@@ -2,9 +2,9 @@ import {
   GETUSERTICKETSSTART,
   GETUSERTICKETSSUCCESS,
   GETUSERTICKETSFAILURE,
-  FILTERTICKETSNOTSTARTED, 
+  FILTERTICKETSNOTSTARTED,
   FILTERTICKETSINPROGRESS,
-  FILTERTICKETSCOMPLETED
+  FILTERTICKETSCOMPLETED,
 } from '../../constants';
 
 const defaultState = {
@@ -12,7 +12,7 @@ const defaultState = {
   notStarted: false,
   inProgress: false,
   completed: false,
-  displayAllTickets: true
+  displayAllTickets: true,
 };
 
 const ticketReducer = (state = defaultState, action) => {
@@ -26,21 +26,21 @@ const ticketReducer = (state = defaultState, action) => {
     case FILTERTICKETSNOTSTARTED:
       return {
         ...state,
-        notStarted: action.payload, 
-        displayAllTickets: false
+        notStarted: action.payload,
+        displayAllTickets: false,
       };
     case FILTERTICKETSINPROGRESS:
       return {
         ...state,
         inProgress: action.payload,
-        displayAllTickets: false
+        displayAllTickets: false,
       };
     case FILTERTICKETSCOMPLETED:
       return {
         ...state,
         completed: action.payload,
-        displayAllTickets: false
-      }
+        displayAllTickets: false,
+      };
     default:
       return state;
   }

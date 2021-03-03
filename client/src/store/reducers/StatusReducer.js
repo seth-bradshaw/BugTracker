@@ -1,1 +1,1 @@
-status.arr({...arr, ticket})
+status.arr({ ...arr, ticket });

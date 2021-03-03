@@ -6,14 +6,14 @@ import {
 } from '../../constants';
 import axiosWithAuth from '../../utils/axiosWithAuth';
 
-export const getCurrentUser = () => (dispatch) => {
+export const getCurrentUser = () => dispatch => {
   dispatch({ type: GETCURRENTUSERSTART });
 
   axiosWithAuth()
     .get('/getuserinfo')
-    .then((res) => {
+    .then(res => {
       let { userid, username, roles, email, companies } = res.data;
-      roles = roles.map((role) => {
+      roles = roles.map(role => {
         return role.role.name;
       });
       dispatch({
@@ -23,7 +23,7 @@ export const getCurrentUser = () => (dispatch) => {
           username: username,
           roles: roles,
           email: email,
-          company: companies[0].company
+          company: companies[0].company,
         },
       });
       dispatch({
@@ -31,7 +31,7 @@ export const getCurrentUser = () => (dispatch) => {
         payload: companies[0].company.tickets,
       });
     })
-    .catch((err) => {
+    .catch(err => {
       dispatch({ type: GETCURRENTUSERFAILURE, payload: err.message });
     });
 };

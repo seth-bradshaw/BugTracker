@@ -23,15 +23,15 @@ const initalFormVal = {
   errorcode: '',
   category: '',
   notes: '',
-  severity: ''
+  severity: '',
 };
 
 export default function PostTicket() {
   const [newTicket, setNewTicket] = useState(initalFormVal);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const postNewTicket = (ticket) => {
-    console.log(ticket)
+  const postNewTicket = ticket => {
+    console.log(ticket);
     setIsSubmitting(true);
     postTicket(
       {
@@ -40,20 +40,20 @@ export default function PostTicket() {
         status: ticket.status,
         errorcode: ticket.errorcode,
         category: ticket.category,
-        severity: ticket.severity
+        severity: ticket.severity,
       },
       4
     )
-      .then((res) => {
+      .then(res => {
         console.log(res.data);
         setIsSubmitting(false);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 
-  const changeHandler = (e) => {
+  const changeHandler = e => {
     const { name, value } = e.target;
     setNewTicket({ ...newTicket, [name]: value });
   };
@@ -64,9 +64,7 @@ export default function PostTicket() {
     { key: 'c', text: 'Completed', value: 'Completed' },
   ];
 
-  const categories = [
-    { key: 's', text: 'Testing', value: 'Testing' },
-  ];
+  const categories = [{ key: 's', text: 'Testing', value: 'Testing' }];
 
   const severities = [
     { key: 's', text: 'No Big Deal', value: 'No Big Deal' },
