@@ -46,17 +46,20 @@ export default function TestTicketBoard() {
 
     const onDragStart = (e, id) =>
     {
+        console.log("DRAG START===> ", id)
         e.dataTransfer.setData("id", id)
     }
 
     const onDragOver = (e) => 
     {
+        console.log("DRAGGED OVER")
         e.preventDefault();
     }
 
     const onDrop = (e, status) =>
     {
         let id = e.dataTransfer.getData("id");
+        console.log("ON DROP==> ", id)
 
         let tasks = tickets.filter((tkt) => 
         {
@@ -68,11 +71,11 @@ export default function TestTicketBoard() {
         })
 
         
-        if(status.statustype === "Not started")
+        if(status.statustype === "Not Started")
         {
             setNotStarted({...notStarted, tasks})
         }
-        if(status.statustype === "In progress")
+        if(status.statustype === "In Progress")
         {
             setInProgress({...inProgress, tasks})
         }
@@ -80,12 +83,7 @@ export default function TestTicketBoard() {
         {
             setCompleted({...completed, tasks})
         }
-    }
-
-    const popSingleTicket = (e, tkt) => 
-    {
-        e.preventDefault()
-        return <SingleTicket ticket={tkt} />
+        console.log("Not started: ", notStarted, "\n In progress: ", inProgress, "\n completed: ", completed)
     }
 
     const notStartedTickets = () => tickets.filter(tkt => tkt.status.statustype === "Not Started")
@@ -129,7 +127,7 @@ export default function TestTicketBoard() {
                                                 onClose={() => setShowTicketModal(false)}
                                                 onOpen={() => setShowTicketModal(true)}
                                                 trigger={
-                                                    <div draggable onDragStart={(e) => onDragStart(e, tkt.ticketid)} onClick={(e) => popSingleTicket(e, tkt)}>
+                                                    <div draggable onDragStart={(e) => onDragStart(e, tkt.ticketid)}>
                                                         <h4>{tkt.title}</h4>
                                                     </div>
                                                 }
