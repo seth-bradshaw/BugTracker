@@ -1,7 +1,7 @@
 // for testing (locally)
-export const BASEURL = 'http://localhost:2019';
+// export const BASEURL = 'http://localhost:2019';
 // for deployment
-// export const BASEURL = '';
+export const BASEURL = 'https://bugtrackerbackend27.herokuapp.com';
 
 // User Action Types
 export const GETCURRENTUSERSTART = 'GETCURRENTUSERSTART';
