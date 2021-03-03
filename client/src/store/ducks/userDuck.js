@@ -1,25 +1,6 @@
 import { login, register } from "../../utils/otherAxiosCalls";
 import axiosWithAuth from "../../utils/axiosWithAuth";
 
-
-export const register = (newUser) => {
-	const { username, password, email } = newUser;
-
-	return baseAxiosCall()
-		.post('/createnewuser', {
-			username: username,
-			password: password,
-			email: email,
-		})
-		.then((res) => {
-			return res;
-		})
-		.catch((err) => {
-			return err;
-		});
-};
-
-
 export const types = {
 	LOGIN_START: 'LOGIN_START',
 	LOGIN_SUCCESS: 'LOGIN_SUCCESS',
@@ -40,6 +21,7 @@ export const actions = {
 		dispatch({ type: types.LOGIN_START });
 		login(creds)
 			.then((res) => {
+				localStorage.setItem('token', )
 				dispatch({ type: types.LOGIN_SUCCESS, payload: true });
 			})
 			.catch((err) => {
