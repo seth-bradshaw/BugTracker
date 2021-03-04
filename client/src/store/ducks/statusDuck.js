@@ -58,9 +58,9 @@ export const actions = {
         dispatch({ type: types.GET_STATUS_RESOLVE });
       });
   },
-  postStatusThunk: () => dispatch => {
+  postStatusThunk: status => dispatch => {
     dispatch({ type: types.POST_STATUS_START });
-    addNewStatus()
+    addNewStatus(status)
       .then(res => {
         dispatch({ type: types.POST_STATUS_SUCCESS, payload: res.data });
       })
@@ -71,9 +71,9 @@ export const actions = {
         dispatch({ type: types.POST_STATUS_RESOLVE });
       });
   },
-  putStatusThunk: id => dispatch => {
+  putStatusThunk: (id, status) => dispatch => {
     dispatch({ type: types.PUT_STATUS_START });
-    editExistingStatus(id)
+    editExistingStatus(id, status)
       .then(res => {
         dispatch({ type: types.PUT_STATUS_SUCCESS, payload: res.data });
       })
@@ -164,7 +164,6 @@ const statusReducer = (state = initialState, action) => {
     // case types.POST_STATUS_SUCCESS:
     //     return {
     //         ...state,
-    //         ticketStatus: action.payload,
     //         status: 'post/success'
     //     }
     // case types.POST_STATUS_ERROR:
@@ -187,7 +186,6 @@ const statusReducer = (state = initialState, action) => {
     // case types.PUT_STATUS_SUCCESS:
     //     return {
     //         ...state,
-    //         ticketStatus: action.payload,
     //         status: 'put/success'
     //     }
     // case types.PUT_STATUS_ERROR:
@@ -210,7 +208,6 @@ const statusReducer = (state = initialState, action) => {
     // case types.DELETE_STATUS_SUCCESS:
     //     return {
     //         ...state,
-    //         ticketStatus: action.payload,
     //         status: 'delete/success'
     //     }
     // case types.DELETE_STATUS_ERROR:

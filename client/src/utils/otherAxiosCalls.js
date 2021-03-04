@@ -72,7 +72,7 @@ export const postTicket = newTicket => {
 
 export const getStatusesByUser = () => {
   return axiosWithAuth()
-    .get(`http://localhost:2019/statuses/statuses/user`)
+    .get(`/statuses/statuses/user`)
     .then(res => {
       return res;
     })
@@ -83,7 +83,7 @@ export const getStatusesByUser = () => {
 
 export const getAllStatuses = () => {
   return axiosWithAuth()
-    .get(`http://localhost:2019/statuses/statuses`)
+    .get(`/statuses/statuses`)
     .then(res => {
       return res;
     })
@@ -94,7 +94,7 @@ export const getAllStatuses = () => {
 
 export const getStatusById = id => {
   return axiosWithAuth()
-    .get(`http://localhost:2019/statuses/status/${id}`)
+    .get(`/statuses/status/${id}`)
     .then(res => {
       return res;
     })
@@ -103,9 +103,9 @@ export const getStatusById = id => {
     });
 };
 
-export const addNewStatus = () => {
+export const addNewStatus = status => {
   return axiosWithAuth()
-    .post('http://localhost:2019/statuses/statuses')
+    .post('/statuses/statuses', status)
     .then(res => {
       return res;
     })
@@ -114,9 +114,9 @@ export const addNewStatus = () => {
     });
 };
 
-export const editExistingStatus = id => {
-  axiosWithAuth()
-    .put(`http://localhost:2019/statuses/status/${id}`)
+export const editExistingStatus = (id, status) => {
+  return axiosWithAuth()
+    .put(`/statuses/status/${id}`, status)
     .then(res => {
       return res;
     })
@@ -127,7 +127,74 @@ export const editExistingStatus = id => {
 
 export const deleteStatusById = id => {
   return axiosWithAuth()
-    .delete(`http://localhost:2019/statuses/status/${id}`)
+    .delete(`/statuses/status/${id}`)
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+export const getSingleTicketById = id => {
+  return axiosWithAuth()
+    .get(`/statuses/status/${id}`)
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+//returning all tickets in ticket table will change to tickets by company release 2
+export const getAllTickets = () => {
+  return axiosWithAuth()
+    .get(`/tickets/tickets`)
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+export const getTicketsForUser = userid => {
+  return axiosWithAuth()
+    .get(`/tickets/user/${userid}`)
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+export const addNewTicket = newTicket => {
+  return axiosWithAuth()
+    .post('/tickets/tickets', newTicket)
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+export const editExistingTicket = (ticketid, editedTicket) => {
+  return axiosWithAuth()
+    .put(`/tickets/ticket/${ticketid}`, editedTicket)
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+export const deleteTicket = ticketid => {
+  return axiosWithAuth()
+    .delete(`/tickets/ticket/${ticketid}`)
     .then(res => {
       return res;
     })

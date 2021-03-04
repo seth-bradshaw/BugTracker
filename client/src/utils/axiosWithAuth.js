@@ -8,7 +8,8 @@ const axiosWithAuth = () => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    baseURL: BASEURL,
+    // baseURL: BASEURL,
+    baseURL: 'http://localhost:2019',
   });
 };
 
