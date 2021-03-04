@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { getStatusById } from './../../utils/otherAxiosCalls';
+import { useDispatch, useSelector } from 'react-redux';
 import { Header, Modal, Statistic, Icon } from 'semantic-ui-react';
+import { actions } from '../../store/ducks/statusDuck';
+
 import SingleTicket from './SingleTicket';
 
 export default function TestTicketBoard() {
@@ -9,9 +13,12 @@ export default function TestTicketBoard() {
   const [completed, setCompleted] = useState([]);
   const [notStarted, setNotStarted] = useState([]);
   const [inProgress, setInProgress] = useState([]);
-  const [statuses, setStatuses] = useState([]);
+  // const [statuses, setStatuses] = useState([]);
   const [showTicketModal, setShowTicketModal] = useState(false);
   const [company, setCompany] = useState({});
+  const dispatch = useDispatch();
+  const status = useSelector(state => state.statuses.ticketStatus);
+  const statuses = useSelector(state => state.statuses.statuses);
 
   useEffect(() => {
     axios
@@ -23,15 +30,17 @@ export default function TestTicketBoard() {
         console.log(err);
       });
 
-    axios
-      .get('http://localhost:2019/statuses/statuses')
-      .then(res => {
-        setStatuses(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    dispatch(actions.fetchSingleStatusThunk(12));
 
+    // axios
+    //   .get('http://localhost:2019/statuses/statuses')
+    //   .then(res => {
+    //     setStatuses(res.data);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+    dispatch(actions.fetchStatusesThunk());
     axios
       .get('http://localhost:2019/companies/company/4')
       .then(res => {
@@ -114,7 +123,7 @@ export default function TestTicketBoard() {
   //     status["setStatusState"] = setStatusState
   //     return status
   // }
-
+  console.log('HERE IS STATUS FROM DUCK===> ', status);
   return (
     <div style={{ width: '80%', margin: 'auto' }}>
       <div

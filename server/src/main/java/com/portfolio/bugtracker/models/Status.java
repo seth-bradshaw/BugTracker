@@ -30,4 +30,5 @@ public class Status extends Auditable
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = {"status", "users", "category"}, allowSetters = true)
     private List<Ticket> tickets = new ArrayList<>();
+    private double dbl = 1.25;
 }

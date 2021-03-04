@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import userReducer from './reducers/UserReducer';
 import ticketReducer from './reducers/TicketReducer';
+import statusReducer from './ducks/statusDuck';
 
 export const middlewares = [thunk, logger];
 
@@ -13,6 +14,7 @@ export const createStoreWithMiddlewares = applyMiddleware(...middlewares)(
 export const rootReducer = combineReducers({
   user: userReducer,
   tickets: ticketReducer,
+  statuses: statusReducer
 });
 
 const store = createStoreWithMiddlewares(
