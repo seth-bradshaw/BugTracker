@@ -4,7 +4,8 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 
 const baseAxiosCall = () => {
   return axios.create({
-    baseURL: BASEURL,
+    // baseURL: BASEURL,
+    baseURL: 'http://localhost:2019',
   });
 };
 
@@ -70,8 +71,63 @@ export const postTicket = newTicket => {
 };
 
 export const getStatusesByUser = () => {
-  axiosWithAuth()
+  return axiosWithAuth()
     .get(`http://localhost:2019/statuses/statuses/user`)
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+export const getAllStatuses = () => {
+  return axiosWithAuth()
+    .get(`http://localhost:2019/statuses/statuses`)
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+export const getStatusById = id => {
+  return axiosWithAuth()
+    .get(`http://localhost:2019/statuses/status/${id}`)
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+export const addNewStatus = () => {
+  return axiosWithAuth()
+    .post('http://localhost:2019/statuses/statuses')
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+export const editExistingStatus = id => {
+  axiosWithAuth()
+    .put(`http://localhost:2019/statuses/status/${id}`)
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+export const deleteStatusById = id => {
+  return axiosWithAuth()
+    .delete(`http://localhost:2019/statuses/status/${id}`)
     .then(res => {
       return res;
     })

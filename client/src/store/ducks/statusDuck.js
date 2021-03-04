@@ -1,4 +1,11 @@
-import { getStatusesByUser } from '../../utils/otherAxiosCalls';
+import {
+  getStatusesByUser,
+  getStatusById,
+  addNewStatus,
+  editExistingStatus,
+  deleteStatusById,
+  getAllStatuses,
+} from '../../utils/otherAxiosCalls';
 
 export const types = {
   GET_STATUSES_START: 'GET_STATUSES_START',
@@ -26,7 +33,8 @@ export const types = {
 export const actions = {
   fetchStatusesThunk: () => dispatch => {
     dispatch({ type: types.GET_STATUSES_START });
-    getStatusesByUser()
+    // getStatusesByUser()
+    getAllStatuses()
       .then(res => {
         dispatch({ type: types.GET_STATUSES_SUCCESS, payload: res.data });
       })
@@ -39,7 +47,7 @@ export const actions = {
   },
   fetchSingleStatusThunk: id => dispatch => {
     dispatch({ type: types.GET_STATUS_START });
-    register(newUser)
+    getStatusById(id)
       .then(res => {
         dispatch({ type: types.GET_STATUS_SUCCESS, payload: res.data });
       })
@@ -50,43 +58,43 @@ export const actions = {
         dispatch({ type: types.GET_STATUS_RESOLVE });
       });
   },
-  postStatusThunk: newUser => dispatch => {
-    dispatch({ type: types.GET_STATUS_START });
-    register(newUser)
+  postStatusThunk: () => dispatch => {
+    dispatch({ type: types.POST_STATUS_START });
+    addNewStatus()
       .then(res => {
-        dispatch({ type: types.GET_STATUS_SUCCESS, payload: res.data });
+        dispatch({ type: types.POST_STATUS_SUCCESS, payload: res.data });
       })
       .catch(err => {
-        dispatch({ type: types.GET_STATUS_ERROR, payload: err.message });
+        dispatch({ type: types.POST_STATUS_ERROR, payload: err.message });
       })
       .finally(() => {
-        dispatch({ type: types.GET_STATUS_RESOLVE });
+        dispatch({ type: types.POST_STATUS_RESOLVE });
       });
   },
-  putStatusThunk: newUser => dispatch => {
-    dispatch({ type: types.REGISTER_START });
-    register(newUser)
+  putStatusThunk: id => dispatch => {
+    dispatch({ type: types.PUT_STATUS_START });
+    editExistingStatus(id)
       .then(res => {
-        dispatch({ type: types.REGISTER_SUCCESS, payload: res.data });
+        dispatch({ type: types.PUT_STATUS_SUCCESS, payload: res.data });
       })
       .catch(err => {
-        dispatch({ type: types.FETCH_STATUS_ERROR, payload: err.message });
+        dispatch({ type: types.PUT_STATUS_ERROR, payload: err.message });
       })
       .finally(() => {
-        dispatch({ type: types.FETCH_STATUS_RESOLVE });
+        dispatch({ type: types.PUT_STATUS_RESOLVE });
       });
   },
-  deleteStatusThunk: newUser => dispatch => {
-    dispatch({ type: types.REGISTER_START });
-    register(newUser)
+  deleteStatusThunk: id => dispatch => {
+    dispatch({ type: types.DELETE_STATUS_START });
+    deleteStatusById(id)
       .then(res => {
-        dispatch({ type: types.REGISTER_SUCCESS, payload: res.data });
+        dispatch({ type: types.DELETE_STATUS_SUCCESS, payload: res.data });
       })
       .catch(err => {
-        dispatch({ type: types.FETCH_STATUS_ERROR, payload: err.message });
+        dispatch({ type: types.DELETE_STATUS_ERROR, payload: err.message });
       })
       .finally(() => {
-        dispatch({ type: types.FETCH_STATUS_RESOLVE });
+        dispatch({ type: types.DELETE_STATUS_RESOLVE });
       });
   },
 };
@@ -145,6 +153,8 @@ const statusReducer = (state = initialState, action) => {
         ...state,
         status: 'idle',
       };
+    default:
+      return state;
     //release 2
     // case types.POST_STATUS_START:
     //     return {
