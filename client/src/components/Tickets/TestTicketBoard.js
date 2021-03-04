@@ -1,46 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { getStatusById } from './../../utils/otherAxiosCalls';
 import { useDispatch, useSelector } from 'react-redux';
 import { Header, Modal, Statistic, Icon } from 'semantic-ui-react';
-import { actions } from '../../store/ducks/statusDuck';
-
-import SingleTicket from './SingleTicket';
+import { actions as statusActions } from '../../store/ducks/statusDuck';
+import { actions as ticketActions } from '../../store/ducks/ticketDuck';
 
 export default function TestTicketBoard() {
   //I'm thinking we pass tickets through props so that this component can be used for every trello board
-  const [tickets, setTickets] = useState([]);
   const [completed, setCompleted] = useState([]);
   const [notStarted, setNotStarted] = useState([]);
   const [inProgress, setInProgress] = useState([]);
-  // const [statuses, setStatuses] = useState([]);
   const [showTicketModal, setShowTicketModal] = useState(false);
   const [company, setCompany] = useState({});
   const dispatch = useDispatch();
   const status = useSelector(state => state.statuses.ticketStatus);
   const statuses = useSelector(state => state.statuses.statuses);
+  const tickets = useSelector(state => state.tickets.tickets);
 
   useEffect(() => {
-    axios
-      .get('http://localhost:2019/tickets/tickets')
-      .then(res => {
-        setTickets(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-
-    dispatch(actions.fetchSingleStatusThunk(12));
-
-    // axios
-    //   .get('http://localhost:2019/statuses/statuses')
-    //   .then(res => {
-    //     setStatuses(res.data);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-    dispatch(actions.fetchStatusesThunk());
+    dispatch(ticketActions.fetchAllTicketsThunk());
+    dispatch(statusActions.fetchSingleStatusThunk(12));
+    dispatch(statusActions.fetchStatusesThunk());
     axios
       .get('http://localhost:2019/companies/company/4')
       .then(res => {
