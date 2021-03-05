@@ -119,11 +119,20 @@ public class SeedData implements CommandLineRunner
         t1.getUsers().add(new UserTickets(u2, t3));
 
         Status s1 = new Status();
-        s1.setStatustype("Not started. Testing");
+        s1.setStatustype("Not Started");
         s1 = statusService.save(s1);
         t1.setStatus(s1);
         t2.setStatus(s1);
-        t3.setStatus(s1);
+//        t3.setStatus(s1);
+
+        Status s2 = new Status();
+        s2.setStatustype("In Progress");
+        s2 = statusService.save(s2);
+
+        Status s3 = new Status();
+        s3.setStatustype("Completed");
+        s3 = statusService.save(s3);
+        t3.setStatus(s3);
 
         Category cat1 = new Category();
         cat1.setCategorytype("Testing");
@@ -144,7 +153,7 @@ public class SeedData implements CommandLineRunner
         u1 = userService.save(u1);
         u2.getTickets().add(new UserTickets(u2, t2));
         u2 = userService.save(u2);
-        u3.getTickets().add(new UserTickets(u3, t3));
+//        u3.getTickets().add(new UserTickets(u3, t3));
         u3 = userService.save(u3);
     }
 }

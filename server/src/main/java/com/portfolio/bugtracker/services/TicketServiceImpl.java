@@ -115,6 +115,25 @@ public class TicketServiceImpl implements TicketService
 
         return ticketList;
     }
+
+    @Override
+    public List<Ticket> findAllTicketsByUserId(long userid)
+    {
+        List<Ticket> ticketList = findAllTickets();
+        List<Ticket> rtnList = new ArrayList<>();
+        for (Ticket t : ticketList)
+        {
+            for (UserTickets ut : t.getUsers())
+            {
+                if (ut.getUser().getUserid() == userid)
+                {
+                    rtnList.add(ut.getTicket());
+                }
+            }
+        }
+
+        return rtnList;
+    }
 //    FIX THIS BEFORE DEPLOYMENT
 //    @Override
 //    public Set<Ticket> fetchTicketsByCompany(long companyid)

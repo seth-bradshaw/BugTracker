@@ -83,12 +83,12 @@ export default function RegisterForm() {
             password: values.password,
             email: values.email,
           })
-            .then((res) => {
+            .then(res => {
               console.log('Register Successful ==>> ', res.data);
               localStorage.setItem('token', res.data.access_token);
               push('/dashboard');
             })
-            .catch((err) => {
+            .catch(err => {
               console.log('Register Failed ==>> ', err);
               alert('Register failed');
               push('/register');

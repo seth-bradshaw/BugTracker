@@ -79,13 +79,13 @@ export default function LoginForm() {
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
           login({ username: values.username, password: values.password })
-            .then((res) => {
+            .then(res => {
               console.log('Login Successful ==>> ', res.data);
               localStorage.setItem('token', res.data.access_token);
-              dispatch(getCurrentUser())
+              dispatch(getCurrentUser());
               push('/dashboard');
             })
-            .catch((err) => {
+            .catch(err => {
               console.log('Login Failed ==>> ', err);
               alert('login failed');
               push('/');

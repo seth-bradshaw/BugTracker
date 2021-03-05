@@ -20,38 +20,40 @@ const initalFormVal = {
   title: '',
   description: '',
   status: '',
-  errorCode: '',
-  errorCategory: '',
+  errorcode: '',
+  category: '',
   notes: '',
+  severity: '',
 };
 
 export default function PostTicket() {
   const [newTicket, setNewTicket] = useState(initalFormVal);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const postNewTicket = (ticket) => {
-    console.log(ticket)
+  const postNewTicket = ticket => {
+    console.log(ticket);
     setIsSubmitting(true);
     postTicket(
       {
         title: ticket.title,
         description: ticket.description,
         status: ticket.status,
-        errorCode: ticket.errorCode,
-        errorCategory: ticket.errorCategory,
+        errorcode: ticket.errorcode,
+        category: ticket.category,
+        severity: ticket.severity,
       },
       4
     )
-      .then((res) => {
+      .then(res => {
         console.log(res.data);
         setIsSubmitting(false);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 
-  const changeHandler = (e) => {
+  const changeHandler = e => {
     const { name, value } = e.target;
     setNewTicket({ ...newTicket, [name]: value });
   };
@@ -60,6 +62,14 @@ export default function PostTicket() {
     { key: 's', text: 'Not started', value: 'Not Started' },
     { key: 'p', text: 'In progress', value: 'In Progress' },
     { key: 'c', text: 'Completed', value: 'Completed' },
+  ];
+
+  const categories = [{ key: 's', text: 'Testing', value: 'Testing' }];
+
+  const severities = [
+    { key: 's', text: 'No Big Deal', value: 'No Big Deal' },
+    { key: 'p', text: 'Now Massa', value: 'Now Massa' },
+    { key: 'c', text: 'I SAID NOW', value: 'I SAID NOW' },
   ];
 
   return (
@@ -72,23 +82,23 @@ export default function PostTicket() {
         onSubmit={() => postNewTicket(newTicket)}
         size="medium"
       >
-        <Form.Field width="16">
-          <label
-            basic
-            className="ticket-form-label"
-            style={{ fontSize: '10px' }}
-          >
-            Title
-          </label>
-          <Input
-            focus
-            type="text"
-            placeholder="Title"
-            name="title"
-            onChange={changeHandler}
-          />
-        </Form.Field>
         <Form.Group>
+          <Form.Field width="8">
+            <label
+              basic
+              className="ticket-form-label"
+              style={{ fontSize: '10px' }}
+            >
+              Title
+            </label>
+            <Input
+              focus
+              type="text"
+              placeholder="Title"
+              name="title"
+              onChange={changeHandler}
+            />
+          </Form.Field>
           <Form.Field width="6">
             <label className="ticket-form-label">Error Code</label>
             <Input
@@ -99,14 +109,15 @@ export default function PostTicket() {
               onChange={changeHandler}
             />
           </Form.Field>
+        </Form.Group>
+        <Form.Group>
           <Form.Field width="5">
-            <label className="ticket-form-label">Error Category</label>
-            <Input
-              focus
-              type="text"
-              placeholder="Error category"
-              name="errorCategory"
+            <label className="ticket-form-label">Status</label>
+            <Select
+              placeholder="Category of issue..."
+              options={categories}
               onChange={changeHandler}
+              clearable
             />
           </Form.Field>
           <Form.Field width="5">
@@ -114,6 +125,15 @@ export default function PostTicket() {
             <Select
               placeholder="Status of issue..."
               options={statuses}
+              onChange={changeHandler}
+              clearable
+            />
+          </Form.Field>
+          <Form.Field width="5">
+            <label className="ticket-form-label">Status</label>
+            <Select
+              placeholder="Severity of issue..."
+              options={severities}
               onChange={changeHandler}
               clearable
             />

@@ -25,7 +25,7 @@ const userReducer = (state = defaultState, action) => {
       const { userid, username, roles, email, company } = action.payload;
       return {
         ...state,
-        userid: userid, 
+        userid: userid,
         username: username,
         roles: roles,
         email: email,

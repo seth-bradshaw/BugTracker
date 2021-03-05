@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Header, Icon, Divider, List } from 'semantic-ui-react';
 
 export default function Ticket({ ticket }) {
-  console.log(ticket)
+  console.log(ticket);
   return (
     <>
       <div className="ticket-form-container">
@@ -15,9 +15,7 @@ export default function Ticket({ ticket }) {
             </Header>
           </div>
           <List>
-            {
-              console.log(ticket)
-            }
+            {console.log(ticket)}
             <List.Item>ID: {ticket.ticketid}</List.Item>
             <List.Item>Status: {ticket.status}</List.Item>
             <List.Item>Error Code: {ticket.errorcode}</List.Item>

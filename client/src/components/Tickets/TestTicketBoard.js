@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Header, Modal, Statistic, Icon } from "semantic-ui-react";
 import { actions as statusActions } from "../../store/ducks/statusDuck";
 import { actions as ticketActions } from "../../store/ducks/ticketDuck";
+=======
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { Header, Modal, Statistic, Icon } from 'semantic-ui-react';
+import { actions as statusActions } from '../../store/ducks/statusDuck';
+import { actions as ticketActions } from '../../store/ducks/ticketDuck';
+>>>>>>> upstream/main
 
 export default function TestTicketBoard() {
   //I'm thinking we pass tickets through props so that this component can be used for every trello board
@@ -12,7 +21,7 @@ export default function TestTicketBoard() {
   const statuses = useSelector((state) => state.statuses.statuses);
   const ticket = useSelector((state) => state.tickets.ticket);
   const ticketStatus = useSelector((state) => state.statuses.status);
-  const tickets = useSelector((state) => state.tickets.tickets);
+
   const [save, setSave] = useState(false);
   const dispatch = useDispatch();
 
@@ -21,33 +30,33 @@ export default function TestTicketBoard() {
     dispatch(statusActions.fetchStatusesThunk());
 
     axios
-      .get("http://localhost:2019/companies/company/4")
-      .then((res) => {
+      .get('http://localhost:2019/companies/company/4')
+      .then(res => {
         setCompany(res.data);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }, []);
 
-  const onDragStart = (e, id) => {
-    e.dataTransfer.setData("id", id);
+    e.dataTransfer.setData('id', id);
   };
 
-  const onDragOver = (e) => {
-    console.log("DRAGGED OVER");
+  const onDragOver = e => {
+    console.log('DRAGGED OVER');
     e.preventDefault();
   };
 
   const onDrop = (e, status) => {
-    let id = e.dataTransfer.getData("id");
+    let id = e.dataTransfer.getData('id');
 
-    let tasks = tickets.filter((tkt) => {
+    let tasks = tickets.filter(tkt => {
       if (tkt.ticketid == id) {
         tkt.status.statustype = status.statustype;
       }
       return tkt;
     });
+
 
     // dispatch(
     //   ticketActions.editTicketThunk(ticket.ticketid, {
@@ -92,18 +101,19 @@ export default function TestTicketBoard() {
   ];
 
   return (
-    <div style={{ width: "80%", margin: "auto" }}>
+
+    <div style={{ width: '80%', margin: 'auto' }}>
       <div
         className="ticket-board-header"
         style={{
-          width: "100%",
-          height: "75px",
-          backgroundColor: "rgb(43,44,46)",
-          display: "flex",
-          justifyContent: "space-between",
+          width: '100%',
+          height: '75px',
+          backgroundColor: 'rgb(43,44,46)',
+          display: 'flex',
+          justifyContent: 'space-between',
         }}
       >
-        <p style={{ color: "white", margin: "1.75% 0% 1% 2.5%" }}>
+        <p style={{ color: 'white', margin: '1.75% 0% 1% 2.5%' }}>
           {company.companyname}
         </p>
         <Statistic.Group items={items} />
@@ -127,6 +137,7 @@ export default function TestTicketBoard() {
             >
               <h3>{status.statustype}</h3>
               {tickets.map((tkt) => {
+
                 if (tkt.status.statustype === status.statustype) {
                   return (
                     <Modal
@@ -135,7 +146,7 @@ export default function TestTicketBoard() {
                       trigger={
                         <div
                           draggable
-                          onDragStart={(e) => {
+                          onDragStart={e => {
                             onDragStart(e, tkt.ticketid);
                             dispatch(
                               ticketActions.fetchSingleTicketbyId(tkt.ticketid)

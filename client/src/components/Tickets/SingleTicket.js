@@ -1,10 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 
-export default function SingleTicket() {
-    
-    return (
-        <div>
-            <p>testing</p>
-        </div>
-    )
+export default function SingleTicket(props) {
+  return <div></div>;
 }
