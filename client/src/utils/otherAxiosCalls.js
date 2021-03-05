@@ -114,9 +114,9 @@ export const addNewStatus = status => {
     });
 };
 
-export const editExistingStatus = (id, status) => {
+export const editExistingStatus = (statusid, status) => {
   return axiosWithAuth()
-    .put(`/statuses/status/${id}`, status)
+    .put(`/statuses/status/${statusid}`, status)
     .then(res => {
       return res;
     })
@@ -138,7 +138,7 @@ export const deleteStatusById = id => {
 
 export const getSingleTicketById = id => {
   return axiosWithAuth()
-    .get(`/statuses/status/${id}`)
+    .get(`/tickets/ticket/${id}`)
     .then(res => {
       return res;
     })

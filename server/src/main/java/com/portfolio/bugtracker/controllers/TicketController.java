@@ -63,7 +63,7 @@ public class TicketController
         editedTicket.setTicketid(ticketid);
         Ticket ticket = ticketService.save(editedTicket);
 
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(ticket, HttpStatus.ACCEPTED);
     }
 
     //authenticated

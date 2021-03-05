@@ -7,20 +7,18 @@ import { actions as ticketActions } from '../../store/ducks/ticketDuck';
 
 export default function TestTicketBoard() {
   //I'm thinking we pass tickets through props so that this component can be used for every trello board
-  const [completed, setCompleted] = useState([]);
-  const [notStarted, setNotStarted] = useState([]);
-  const [inProgress, setInProgress] = useState([]);
   const [showTicketModal, setShowTicketModal] = useState(false);
   const [company, setCompany] = useState({});
-  const dispatch = useDispatch();
-  const status = useSelector(state => state.statuses.ticketStatus);
   const statuses = useSelector(state => state.statuses.statuses);
+  const ticket = useSelector(state => state.tickets.ticket);
   const tickets = useSelector(state => state.tickets.tickets);
+  const [save, setSave] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(ticketActions.fetchAllTicketsThunk());
-    dispatch(statusActions.fetchSingleStatusThunk(12));
     dispatch(statusActions.fetchStatusesThunk());
+
     axios
       .get('http://localhost:2019/companies/company/4')
       .then(res => {
@@ -32,7 +30,6 @@ export default function TestTicketBoard() {
   }, []);
 
   const onDragStart = (e, id) => {
-    console.log('DRAG START===> ', id);
     e.dataTransfer.setData('id', id);
   };
 
@@ -43,7 +40,6 @@ export default function TestTicketBoard() {
 
   const onDrop = (e, status) => {
     let id = e.dataTransfer.getData('id');
-    console.log('ON DROP==> ', id);
 
     let tasks = tickets.filter(tkt => {
       if (tkt.ticketid == id) {
@@ -52,23 +48,20 @@ export default function TestTicketBoard() {
       return tkt;
     });
 
-    if (status.statustype === 'Not Started') {
-      setNotStarted({ ...notStarted, tasks });
-    }
-    if (status.statustype === 'In Progress') {
-      setInProgress({ ...inProgress, tasks });
-    }
-    if (status.statustype === 'Completed') {
-      setCompleted({ ...completed, tasks });
-    }
-    console.log(
-      'Not started: ',
-      notStarted,
-      '\n In progress: ',
-      inProgress,
-      '\n completed: ',
-      completed
+    dispatch(
+      ticketActions.editTicketThunk(ticket.ticketid, {
+        title: ticket.title,
+        description: ticket.description,
+        errorcode: ticket.errorcode,
+        notes: ticket.notes,
+        severity: ticket.severity,
+        users: ticket.users,
+        category: ticket.category,
+        status: status,
+      })
     );
+
+    setSave(!save);
   };
 
   const notStartedTickets = () =>
@@ -96,14 +89,6 @@ export default function TestTicketBoard() {
     },
   ];
 
-  // const useCreateStatusState = (status) => {
-  //     const [statusState, setStatusState] = useState([])
-
-  //     status["statusState"] = statusState
-  //     status["setStatusState"] = setStatusState
-  //     return status
-  // }
-  console.log('HERE IS STATUS FROM DUCK===> ', status);
   return (
     <div style={{ width: '80%', margin: 'auto' }}>
       <div
@@ -145,7 +130,12 @@ export default function TestTicketBoard() {
                       trigger={
                         <div
                           draggable
-                          onDragStart={e => onDragStart(e, tkt.ticketid)}
+                          onDragStart={e => {
+                            onDragStart(e, tkt.ticketid);
+                            dispatch(
+                              ticketActions.fetchSingleTicketbyId(tkt.ticketid)
+                            );
+                          }}
                         >
                           <h4>{tkt.title}</h4>
                         </div>
