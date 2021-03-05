@@ -53,7 +53,12 @@ public class StatusServiceImpl implements StatusService
 
         if (s1.getTickets().size() > 0)
         {
-            throw new Exception("You cannot add or edit tickets through status!");
+            for (Ticket t : s1.getTickets())
+            {
+                System.out.println("HERES TOHNY==> " + t);
+                ticketService.findTicketById(t.getTicketid());
+                status.getTickets().add(t);
+            }
         }
 
         return statusRepository.save(status);

@@ -224,6 +224,7 @@ const ticketReducer = (state = initialState, action) => {
     case types.PUT_TICKET_SUCCESS:
       return {
         ...state,
+
         status: 'put/success',
       };
     case types.PUT_TICKET_ERROR:

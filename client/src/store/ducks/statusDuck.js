@@ -153,8 +153,6 @@ const statusReducer = (state = initialState, action) => {
         ...state,
         status: 'idle',
       };
-    default:
-      return state;
     //release 2
     // case types.POST_STATUS_START:
     //     return {
@@ -178,27 +176,27 @@ const statusReducer = (state = initialState, action) => {
     //         status: 'idle'
     //     }
 
-    // case types.PUT_STATUS_START:
-    //     return {
-    //         ...state,
-    //         status: 'put/pending',
-    //     };
-    // case types.PUT_STATUS_SUCCESS:
-    //     return {
-    //         ...state,
-    //         status: 'put/success'
-    //     }
-    // case types.PUT_STATUS_ERROR:
-    //     return {
-    //         ...state,
-    //         status: 'put/error',
-    //         error: action.payload
-    //     }
-    // case types.PUT_STATUS_RESOLVE:
-    //     return {
-    //         ...state,
-    //         status: 'idle'
-    //     }
+    case types.PUT_STATUS_START:
+      return {
+        ...state,
+        status: 'put/pending',
+      };
+    case types.PUT_STATUS_SUCCESS:
+      return {
+        ...state,
+        status: 'put/success',
+      };
+    case types.PUT_STATUS_ERROR:
+      return {
+        ...state,
+        status: 'put/error',
+        error: action.payload,
+      };
+    case types.PUT_STATUS_RESOLVE:
+      return {
+        ...state,
+        status: 'idle',
+      };
 
     // case types.DELETE_STATUS_START:
     //     return {
@@ -221,6 +219,8 @@ const statusReducer = (state = initialState, action) => {
     //         ...state,
     //         status: 'idle'
     //     }
+    default:
+      return state;
   }
 };
 
